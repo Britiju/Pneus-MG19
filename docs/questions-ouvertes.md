@@ -245,6 +245,70 @@ identifiée comme conséquence du cadrage des événements post-vente
 
 ---
 
+### Q7 — Stratégie de backup et continuité des données
+
+**Question** : Quelle est la stratégie de backup, d'export et de
+continuité d'activité pour les données du système?
+
+**Contexte**
+
+Supabase offre des backups automatiques (quotidiens avec rétention
+selon le plan, point-in-time recovery sur le plan Pro). C'est une
+base, mais plusieurs scénarios nécessitent une vraie discussion :
+
+- **Erreur humaine** : un partenaire supprime par accident des kits.
+  L'ADR-005 (immutabilité) et le soft delete systématique adressent
+  largement ce risque, mais la politique doit être explicite.
+- **Export des données** : capacité à sortir toutes les données dans
+  un format portable (CSV, JSON, backup SQL) pour migration future,
+  audit, comptable, obligation légale.
+- **Compromission du compte Supabase** : une copie hors-Supabase
+  protège des cas extrêmes (credentials volés, attaquant qui supprime
+  le projet).
+- **Panne prolongée de Supabase** : rare mais possible. Stratégie de
+  continuité d'activité pendant 24-48h d'indisponibilité.
+- **Backup des fichiers** (photos) : les photos stockées dans
+  Supabase Storage ont des règles potentiellement différentes de la
+  BD principale.
+- **Archivage long terme** : quand une donnée devient réellement
+  "vieille" (5 ans? 10 ans?), que fait-on? Archive froide?
+  Suppression conforme aux obligations légales?
+
+**Dimensions à considérer**
+
+- **Fréquence** des backups hors-Supabase (quotidien, hebdomadaire?)
+- **Destination** des backups (S3, Google Drive, disque local
+  chiffré, plusieurs emplacements?)
+- **Rétention** (combien de versions garder?)
+- **Mécanisme d'export** intégré à l'app (bouton "télécharger mes
+  données") ou script externe?
+- **Test de restauration** (un backup qui n'a jamais été testé n'est
+  pas un backup fiable)
+- **Documentation du plan de reprise** (qui fait quoi en cas de
+  panne?)
+- **Chiffrement** des backups (surtout s'ils contiennent des données
+  clients)
+- **Conformité** aux obligations québécoises (Loi 25 sur les
+  renseignements personnels, si applicable)
+
+**Questions secondaires**
+
+- Quelle politique de rétention par type de donnée (ventes
+  immuables vs logs éphémères)?
+- Faut-il un "mode hors-ligne" de l'app pour fonctionner pendant une
+  panne Supabase?
+- Les exports manuels par l'utilisateur sont-ils journalisés (qui a
+  exporté quoi et quand)?
+
+**Quand la trancher** : **après le Paquet 4** (mécaniques de vente),
+avant le début du développement MVP. La structure complète de la BD
+doit être connue pour définir une stratégie cohérente.
+
+**Dernière discussion** : Paquet 2, identifié comme question
+transversale non couverte par le cadrage initial.
+
+---
+
 ## Questions archivées
 
 *Cette section accueillera les questions tranchées au fil du temps,
@@ -258,3 +322,5 @@ avec référence à l'ADR ou au document qui les a tranchées.*
 
 - **Paquet 1 (cadrage initial)** : création du document, ajout de Q1
   à Q6.
+- **Paquet 2 (finances)** : ajout de Q7 (stratégie de backup et
+  continuité des données).
