@@ -47,7 +47,7 @@ Voir `docs/decisions/ADR-005-immutabilite.md` pour les règles
 d'immutabilité.
 Voir `docs/decisions/ADR-006-evenements-post-vente.md` pour les
 événements.
-Voir `docs/decisions/ADR-008-allocation-couts.md` pour l'allocation.
+Voir `docs/decisions/ADR-008-allocation-couts-lot.md` pour l'allocation.
 Voir `docs/decisions/ADR-009-retours-fournisseur.md` pour les retours
 fournisseur.
 

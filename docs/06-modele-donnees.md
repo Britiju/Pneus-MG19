@@ -60,6 +60,8 @@ modèle — ce que Mika étiquette, décrit, vend, tracque.
 - `quantite_pneus` — nombre de pneus (par défaut 4)
 - `vehicule_compatible` — texte libre (optionnel)
 - `prix_achat_alloue` — part du prix d'achat du lot attribuée à ce kit
+  (nullable en état `draft`, obligatoire à partir de l'état `active`,
+  voir ADR-008)
 - `prix_vente_affiche` — prix courant affiché à la vente
 - `notes` — texte libre
 - `data_quality_tier` — hérité du Lot
