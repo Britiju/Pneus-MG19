@@ -83,6 +83,7 @@ Claude n'a pas de mémoire entre sessions. Au début de chaque session :
 - docs/09-stack-technique.md : choix techniques détaillés
 - docs/10-ux-design-system.md : patterns UI
 - docs/11-integration-quickbooks.md : vision stratégique intégration comptable (Phase C)
+- docs/12-integration-physique-reseau.md : appareils physiques (imprimantes, scanners, terminaux) et topologie réseau
 - docs/questions-ouvertes.md : sujets en cours non tranchés
 - docs/sessions/ : fiches de déconstruction des étapes métier
 - docs/decisions/ : ADR (Architecture Decision Records)
