@@ -15,7 +15,7 @@ un employé non-spécialiste.
 
 ## Les utilisateurs actuels
 - Mika (propriétaire)
-- 1-2 partenaires occasionnels
+- 1-2 partenaires occasionnels (accès complet au MVP — voir ADR-007)
 - À terme : employés opérationnels (le système doit être exploitable
   sans tribal knowledge)
 
@@ -35,19 +35,55 @@ un employé non-spécialiste.
 3. Les données historiques (legacy) et nouvelles sont séparées par tiering
 4. Architecture modulaire — chaque module est isolé et remplaçable
 5. Mobile-first responsive web — pas d'app native au MVP
+6. Saisie d'abord, exceptions ensuite — workflow principal uniforme,
+   corrections via actions explicites séparées dans le temps
+7. Formulaires d'abord, IA en enrichissement — la voix et l'IA sont des
+   couches optionnelles Phase B/C (voir ADR-010)
+8. Cas standard d'abord — implémenter le cas 80%, les 20% restants via
+   workflows séparés optionnels
+9. Engagement explicite — pas de pré-remplissage automatique sur les
+   données à impact business ou comptable (voir ADR-008)
+
+## Gestion du scope creep
+
+Avant d'implémenter une idée, poser ces 3 questions dans l'ordre :
+
+1. **À quel module appartient cette fonctionnalité?**
+2. **Ce module est-il dans le MVP?** Si non → `docs/backlog.md`, stop.
+3. **Est-ce le cas standard (80%)?** Si non → workflow séparé optionnel.
+
+Règles supplémentaires :
+- Si une fonctionnalité ne peut pas être décrite comme un formulaire
+  simple → elle n'est pas mûre pour le MVP (Principe 12)
+- Si on ne peut pas identifier un écran unique avec un titre clair →
+  l'idée est trop vague pour être codée maintenant
+- En cas de doute → `docs/backlog.md` + discussion explicite avec Mika
+
+## Mémoire persistante
+
+Claude n'a pas de mémoire entre sessions. Au début de chaque session :
+
+1. **Lire ce fichier** (fait automatiquement)
+2. **Consulter `docs/questions-ouvertes.md`** — sujets en cours non
+   tranchés et contexte des discussions précédentes
+3. **Consulter les ADR concernés** — toutes les décisions passées sont
+   formalisées dans `docs/decisions/`
+4. **Ne jamais présumer d'un contexte non documenté** — si une décision
+   n'est pas dans un ADR, considérer qu'elle n'est pas encore prise
 
 ## Navigation dans la documentation
-- docs/01-vision-produit.md : le pourquoi du projet
+- docs/01-vision-produit.md : le pourquoi du projet (13 principes)
 - docs/02-personae-utilisateurs.md : qui utilise l'app
 - docs/03-cycle-de-vie.md : les étapes métier
 - docs/04-modules.md : découpage architectural
 - docs/05-dashboard.md : spécification du Module 1
-- docs/06-data-model.md : modèle de données
+- docs/06-modele-donnees.md : modèle de données (Lot → Kit → Variantes)
 - docs/07-data-quality-tiers.md : gestion legacy vs nouveau
 - docs/08-roadmap.md : séquencement des livraisons
 - docs/09-stack-technique.md : choix techniques détaillés
 - docs/10-ux-design-system.md : patterns UI
-- docs/sessions/ : fiches de déconstruction des 8 étapes
+- docs/questions-ouvertes.md : sujets en cours non tranchés
+- docs/sessions/ : fiches de déconstruction des étapes métier
 - docs/decisions/ : ADR (Architecture Decision Records)
 
 ## Conventions de code (à compléter en Phase 4)
@@ -55,6 +91,7 @@ un employé non-spécialiste.
 
 ## Instructions pour Claude Code
 - Lis TOUJOURS ce fichier d'abord
+- Consulte `docs/questions-ouvertes.md` si le sujet est complexe
 - Pour chaque tâche, identifie le(s) document(s) pertinent(s) dans docs/
 - Ne dévie jamais du scope MVP sans validation explicite
 - Respecte l'architecture modulaire — un module ne dépend pas d'un autre
