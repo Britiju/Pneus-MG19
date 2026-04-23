@@ -136,4 +136,60 @@ vs verrouillées). Alerte automatique si < 10 ancres actives.
 **Phase potentielle** : MVP si simple, Phase B sinon
 **Lié à** : ADR-004 numérotation
 
+### [NOUVEAU] Assistant de pricing intelligent pour acheteurs
+
+**Description** : modèle prédictif entraîné sur les données historiques
+propres (`app_native` uniquement) qui suggère une fourchette de prix
+d'achat pour un kit caractérisé : "bon prix", "acceptable", "plafond".
+Utilisable terrain pendant la négociation. Permettrait de déléguer
+l'achat à des acheteurs moins expérimentés que Mika.
+**Phase cible** : Phase C (Module 7 — IA)
+**Prérequis** : minimum 12-18 mois de données app_native, volume
+critique (~500+ achats avec prix granulaire)
+**Architecture préparée dès MVP** : données granulaires par kit
+(Modèle 3.5), prix alloué par kit (ADR-008), tiering (ADR-002)
+
+### [NOUVEAU] Portail d'estimation à distance pour vendeurs
+
+**Description** : formulaire public où des vendeurs potentiels saisissent
+photos + mesures. Le système renvoie une estimation de prix d'achat. Mika
+reçoit une notification des opportunités qualifiées. Inverse le flux
+commercial (ils viennent à Mika plutôt que l'inverse).
+**Phase cible** : Phase C ou D
+**Valeur stratégique** : transition vers "Amazon du pneu usagé"
+
+### [NOUVEAU] Saisie conversationnelle voice-to-data
+
+**Description** : bouton microphone sur les formulaires de saisie.
+L'utilisateur dicte (ex: "Michelin 225/65r17 hiver 9 millimètres"),
+l'IA extrait les données et pré-remplit les champs, l'utilisateur
+valide ou corrige. Utilisable à plusieurs points du workflow :
+acquisition, caractérisation, consultation.
+**Exemples** :
+- Terrain : *"J'ai un lot de 15 kits pour 2200$"* → crée 15 kits shells
+- Entrepôt : *"Kit 1 = Michelin 225/65r17 hiver 8mm"* → remplit le kit
+- Consultation : *"Combien j'ai payé en moyenne pour des Michelin hiver?"*
+**Phase cible** : Phase B (tôt) ou C
+**Technique** : APIs modernes (Whisper + Claude API)
+**Lié à** : ADR-010
+
+### [NOUVEAU] Enrichissement progressif des kits
+
+**Description** : les kits peuvent exister avec des attributs partiels.
+Statuts intermédiaires : `shell` → `description_partielle` →
+`caracterise` → `en_stock`. Photos et détails ajoutés au fil de l'eau.
+Prix d'achat alloué plus tard (après négociation finalisée).
+**Phase cible** : MVP+ ou Phase B (à discuter)
+**Note** : architecture déjà préparée par modèle de données nullable
+
+### [NOUVEAU] Initiation d'achat / Work Order
+
+**Description** : nouveau statut de Lot : `en_prospection` /
+`en_negociation`. Création d'un Work Order pendant la négociation
+avant paiement. Génère automatiquement les codes de la plage réservée
+pour étiquetage physique pendant la visite. Tracking multi-dimensionnel :
+financier + physique + géographique + rôles.
+**Phase cible** : Phase B
+**Lié à** : questions-ouvertes.md (question "Initiation d'achat")
+
 ---

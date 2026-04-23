@@ -29,7 +29,14 @@ Gestion structurée des lots, kits et variantes.
 - Gestion des 5 événements post-vente (annulation, retour complet,
   retour partiel, indemnisation, échange)
 - Gestion des rebuts partiels et totaux
-- Workflow de correction des codes d'étiquettes
+- Gestion des retours fournisseur (avant mise en stock — ADR-009)
+- Workflow d'allocation des coûts avec champs vides + boutons raccourcis
+  (ADR-008) : "Diviser également", "Diviser proportionnellement aux pneus",
+  "Tout remettre à 0"
+- Workflow de correction des codes d'étiquettes :
+  - Bouton **"Code différent"** — si Mika a écrit un code différent sur le pneu
+  - Bouton **"Étiquette illisible"** — pour réattribuer un nouveau code
+  - Bouton **"Annuler la réservation"** — si la plage réservée n'a pas été utilisée
 - Journal d'événements complet par kit
 
 **Détails techniques** :
@@ -40,6 +47,9 @@ Voir `docs/decisions/ADR-005-immutabilite.md` pour les règles
 d'immutabilité.
 Voir `docs/decisions/ADR-006-evenements-post-vente.md` pour les
 événements.
+Voir `docs/decisions/ADR-008-allocation-couts.md` pour l'allocation.
+Voir `docs/decisions/ADR-009-retours-fournisseur.md` pour les retours
+fournisseur.
 
 ### Module 3 — Finance (MVP)
 

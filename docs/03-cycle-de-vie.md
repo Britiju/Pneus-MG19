@@ -16,14 +16,19 @@ Le cycle de vie se décompose en 4 phases, chacune regroupant plusieurs
 
 ### Phase A — Sourcing (avant l'achat)
 
-Cette phase n'existe pas dans le système Excel actuel mais génère de la
-valeur implicite. L'objectif du projet n'est pas de la gérer activement
-au MVP, mais de capturer suffisamment de traces pour permettre son
-exploitation future via un CRM dédié.
+Cette phase est **capturée minimalement au MVP** : nom du fournisseur,
+date d'acquisition, et statut du Lot. Elle sera enrichie en Phase B
+avec le concept d'"Initiation d'achat / Work Order" (voir
+`docs/questions-ouvertes.md`).
+
+**Statuts de Lot pour la Phase A** :
+- `en_prospection` — Mika a identifié le lot, visite à planifier
+- `en_negociation` — Visite faite, négociation en cours
+- `achete` — Achat confirmé, lot en transit ou en entrepôt
 
 **Étape 1 — Prospection**
 Mika identifie des fournisseurs potentiels (contacts existants, annonces,
-bouche-à-oreille).
+bouche-à-oreille). Statut du Lot : `en_prospection`.
 
 **Étape 2 — Évaluation**
 Visite sur place, inspection rapide du lot, estimation de la valeur
@@ -31,11 +36,12 @@ marchande.
 
 **Étape 3 — Négociation**
 Discussion du prix avec le fournisseur, offres et contre-offres.
+Statut du Lot : `en_negociation`.
 
 **Étape 4 — Décision**
 Achat confirmé ou opportunité abandonnée. Dans les deux cas, l'information
-devrait être tracée pour analyse future (combien de lots évalués vs
-achetés, quels fournisseurs reviennent, etc.).
+est tracée pour analyse future (combien de lots évalués vs achetés,
+quels fournisseurs reviennent, etc.). Statut du Lot si acheté : `achete`.
 
 ### Phase B — Acquisition et préparation
 
@@ -57,6 +63,12 @@ Inspection détaillée de chaque item : marque, taille, usure (mesure en
 **Étape 8 — Déjantage (conditionnel)**
 Certains lots arrivent sur jantes et doivent être déjantés avant la mise
 en vente (ou inversement, remontés sur d'autres jantes).
+
+**Étape 8bis — Retour fournisseur (conditionnel)**
+Si l'inspection révèle des défauts sur certains kits, ils sont retournés
+au fournisseur avant d'entrer en inventaire actif. Événement distinct
+du rebut (responsabilité fournisseur, possible remboursement). Voir
+ADR-009.
 
 ### Phase C — Mise en vente
 
@@ -88,6 +100,12 @@ Discussion du prix, prise de rendez-vous pour essai ou livraison.
 **Étape 15 — Vente**
 Transaction finalisée, paiement reçu.
 
+**Étape 15bis — Événements post-vente (conditionnel)**
+Après la vente, des événements correctifs peuvent survenir :
+annulation (erreur de saisie), retour complet, retour partiel,
+indemnisation ou échange. Chaque événement est traçable et n'efface
+jamais la vente originale (voir ADR-006).
+
 **Étape 16 — Livraison**
 Remise physique des pneus au client, clôture de l'item dans l'inventaire.
 
@@ -102,9 +120,16 @@ avec QuickBooks ou équivalent.
 
 - **Coûts** (directs et indirects)
 - **Temps passé** par étape et par utilisateur
-- **Photos et documents**
+- **Photos et documents** (rattachables au kit ou à la variante à tout
+  moment, pas seulement à l'étape de caractérisation)
 - **Historique des statuts et transitions**
 - **Notes et commentaires de l'équipe**
+- **Journal d'événements** : chaque changement d'état significatif
+  crée un événement horodaté et attribué à un utilisateur (ADR-005).
+  Ce journal est la source de vérité pour l'audit trail.
+- **Statuts multidimensionnels** (Phase B) : financier (payé / acompte
+  / facture reçue), physique (chez vendeur / transit / entrepôt),
+  géographique (localisation actuelle)
 
 Au MVP, toutes ces données ne sont pas nécessairement capturées
 activement — mais le modèle de données est conçu pour les accueillir
