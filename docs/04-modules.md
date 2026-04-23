@@ -38,6 +38,14 @@ Gestion structurée des lots, kits et variantes.
   - Bouton **"Étiquette illisible"** — pour réattribuer un nouveau code
   - Bouton **"Annuler la réservation"** — si la plage réservée n'a pas été utilisée
 - Journal d'événements complet par kit
+- Gestion des emplacements physiques (création, renommage,
+  archivage)
+- Assignation d'un emplacement actuel à chaque kit
+- Mouvements en lot (déplacer plusieurs kits simultanément)
+- Filtre de recherche par emplacement
+- Catégorisation automatique de l'usure en saisons restantes (pour
+  comparables et description)
+- Bouton "Copier la description" pour coller dans Marketplace
 
 **Détails techniques** :
 
@@ -50,6 +58,10 @@ Voir `docs/decisions/ADR-006-evenements-post-vente.md` pour les
 Voir `docs/decisions/ADR-008-allocation-couts-lot.md` pour l'allocation.
 Voir `docs/decisions/ADR-009-retours-fournisseur.md` pour les retours
 fournisseur.
+Voir `docs/decisions/ADR-011-pricing-mvp.md` pour la catégorisation
+usure et la description.
+Voir `docs/decisions/ADR-012-emplacements-mvp.md` pour la gestion
+des emplacements.
 
 ### Module 3 — Finance (MVP)
 
@@ -63,11 +75,23 @@ Suivi des marges et rapports financiers.
 - Vues mensuelle, trimestrielle, annuelle
 - Segmentation legacy vs nouveau (tiering)
 - Gestion des indemnisations et retours (impact sur marges)
+- Profit par lot (réalisé + potentiel restant)
+- Capture du prix affiché et prix de vente (calcul du rabais de
+  négociation)
+- Panneau "Ventes comparables" au moment de la saisie du prix
+  affiché, trié par récence
+- Signaux visuels sur kits stagnants (seuils par saison, seuils
+  précis à définir au Paquet 6)
 
 **Structure préparée pour Phase B/C** :
 
 - Table `expenses` prévue mais non active au MVP
 - Champs pour coûts indirects (transport, storage) désactivés au MVP
+
+**Détails techniques** :
+
+Voir `docs/decisions/ADR-011-pricing-mvp.md` pour le pricing et les
+comparables.
 
 ### Module 4 — Saisie mobile (Phase B)
 

@@ -309,6 +309,62 @@ transversale non couverte par le cadrage initial.
 
 ---
 
+### Q8 — Stratégie de bascule (migration, cohabitation, tests, formation)
+
+**Question** : Comment on transitionne proprement du système actuel
+(Excel) vers l'app, sans perte de données ni rupture opérationnelle?
+
+**Contexte**
+
+Le jour J de la mise en production de l'app, il faut gérer plusieurs
+choses simultanément :
+
+- Importer l'historique (607 enregistrements + données récentes)
+- Établir les emplacements actuels de tous les kits
+- Gérer une période de cohabitation Excel ↔ App (possible risque de
+  divergence)
+- Former Mika et les partenaires au nouvel outil
+- Détecter rapidement les bugs qui pourraient corrompre des données
+
+Sans plan explicite, le risque est une mise en production chaotique
+avec perte de confiance dans l'outil.
+
+**Sous-sujets à traiter**
+
+**A — Migration des données**
+- Structure de l'import Excel vers la BD
+- Quels champs migrer, quels calculer, quels laisser vides
+- Validation de l'import (vérification d'intégrité)
+- Inventaire initial des emplacements (voir `docs/pratiques-pre-mvp.md`)
+
+**B — Cohabitation**
+- Combien de temps les deux systèmes cohabitent
+- Quel système est la source de vérité pendant la transition
+- Comment gérer les ventes qui arrivent pendant la transition
+- Quand arrêter officiellement Excel
+- Plan de retour en arrière si catastrophe
+
+**C — Plan de test**
+- Scénarios concrets à tester avant mise en production
+- Qui teste et avec quels critères
+- Gestion des bugs découverts en production
+
+**D — Formation et onboarding**
+- Comment Mika et les partenaires apprennent l'app
+- Documentation opérationnelle
+- Plan de support pour les premières semaines
+
+**Quand la trancher** : dans un **Paquet de bascule dédié** (appelons-le
+provisoirement Paquet 8), à traiter **entre la fin du cadrage
+fonctionnel et le début du développement MVP**. Certaines pratiques
+peuvent commencer dès aujourd'hui (voir `docs/pratiques-pre-mvp.md`).
+
+**Dernière discussion** : Paquet 2, identifié comme préoccupation
+critique pendant la discussion sur les emplacements. Insistance de
+Mika sur l'importance de planifier plutôt que d'improviser.
+
+---
+
 ## Questions archivées
 
 *Cette section accueillera les questions tranchées au fil du temps,
@@ -324,3 +380,5 @@ avec référence à l'ADR ou au document qui les a tranchées.*
   à Q6.
 - **Paquet 2 (finances)** : ajout de Q7 (stratégie de backup et
   continuité des données).
+- **Paquet 2 (finances, intermédiaire)** : ajout de Q8 (stratégie de
+  bascule : migration, cohabitation, tests, formation).
