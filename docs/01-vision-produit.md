@@ -27,9 +27,9 @@ Une plateforme web qui structure l'ensemble du cycle de vie d'un lot
 de pneus, de l'acquisition à la vente, tout en produisant des tableaux
 de bord analytiques en temps réel.
 
-La plateforme est conçue selon neuf principes directeurs.
+La plateforme est conçue selon treize principes directeurs.
 
-### Les 9 principes directeurs
+### Les 13 principes directeurs
 
 **Principe 1 — Aucune feature ne ralentit le workflow actuel**
 
@@ -94,6 +94,39 @@ effacées après leur création. Les corrections d'erreurs sur du
 de nouveaux événements plutôt que de modifier les originaux. Aucune
 suppression physique n'est faite — toute "suppression" est un
 changement de statut (soft delete) qui reste traçable.
+
+**Principe 10 — Saisie d'abord, exceptions ensuite**
+
+Le workflow de saisie capture la réalité observée de manière uniforme.
+Les cas d'exception (rebuts, détachements, retours, corrections) sont
+traités via des actions explicites distinctes dans le temps, pas pendant
+la saisie initiale. Cela simplifie le workflow principal et garde une
+trace claire de chaque événement.
+
+**Principe 11 — Engagement explicite sur données sensibles**
+
+Pour les champs à impact business ou comptable, ne jamais pré-remplir
+automatiquement. Proposer des boutons ou raccourcis qui remplissent à
+la demande explicite de l'utilisateur. Cela garantit une action
+consciente plutôt qu'une validation passive d'une valeur pré-calculée
+(biais d'ancrage). Voir ADR-008 pour l'application sur l'allocation
+des coûts.
+
+**Principe 12 — Formulaires d'abord, IA en enrichissement**
+
+Toute fonctionnalité doit d'abord être réalisable via un formulaire
+traditionnel avec champs et boutons, avant qu'une version vocale ou IA
+ne soit envisagée. La voix et l'IA sont des couches d'accélération
+au-dessus d'un système qui fonctionne sans elles. Si une fonctionnalité
+n'est pas formulable en formulaire simple, elle n'est pas encore mûre
+pour le MVP. Voir ADR-010 pour l'architecture conversationnelle.
+
+**Principe 13 — Cas standard d'abord, exceptions ensuite**
+
+Pour chaque feature, identifier le cas standard (80% des usages) et
+implémenter uniquement ça. Les cas atypiques (20%) sont gérés par des
+workflows séparés, optionnels, activés explicitement. Pas de "tout dans
+un seul écran ultra flexible".
 
 ## Objectif long terme
 
