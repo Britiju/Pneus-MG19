@@ -45,7 +45,7 @@ nouveaux outils.
 Mika peut s'absenter une semaine du business et, à son retour, reprendre
 le pilotage sans avoir perdu d'informations critiques.
 
-## Persona 2 — Les partenaires occasionnels (MVP, accès limité)
+## Persona 2 — Les partenaires occasionnels (MVP, accès complet)
 
 **Rôle** : amis et collaborateurs qui aident Mika ponctuellement sur des
 tâches spécifiques (inspection d'un lot, livraison à un client, prise
@@ -63,22 +63,33 @@ outils numériques, d'autres moins.
 **Besoins principaux** :
 
 - Interface simple et guidée — pas de tableau Excel à décrypter
-- Pouvoir saisir des items sans voir les données sensibles (marges,
-  prix d'achat, volumes totaux)
-- Accès limité aux actions qui leur sont confiées
+- Pouvoir saisir, modifier, vendre sans barrière
+- Actions claires dont les conséquences sont visibles
 
 **Considération de design importante** :
 
 Mika a exprimé une préoccupation légitime sur la **visibilité des volumes
-business** aux partenaires occasionnels. Le système doit permettre à un
-partenaire d'utiliser l'app sans pouvoir déduire le chiffre d'affaires
-mensuel de Mika. Cela influence deux choix architecturaux :
+business** aux partenaires occasionnels. La décision finale (ADR-007) est
+d'adopter une **approche ouverte au MVP** plutôt que des restrictions par
+rôle :
 
-- **IDs opaques** : les codes d'étiquettes sont aléatoires (ex: `H3K`,
-  `M7P`), non séquentiels, pour empêcher la déduction du volume total
-- **Rôles utilisateurs dès le MVP** : même simple, une séparation
-  "propriétaire" vs "partenaire" existe, avec masquage des données
-  financières pour les partenaires
+- **Accès ouvert** : tous les utilisateurs authentifiés ont accès à toutes
+  les fonctionnalités. Pas de masquage de données financières au MVP.
+- **Protection par traçabilité** : le journal d'événements (ADR-005)
+  enregistre chaque action avec l'identité de l'utilisateur. Mika peut
+  vérifier toutes les actions de ses partenaires à tout moment.
+- **Confidentialité des volumes par la numérotation** : les codes de kits
+  (format `A247`, système des 50 ancres — voir ADR-004) sont visuellement
+  aléatoires entre plages, rendant la déduction du volume total difficile
+  pour un observateur externe.
+- **Rôles granulaires différés** : une séparation propriétaire / partenaire
+  avec masquage des données financières est planifiée en Phase B/C, quand
+  le cercle de confiance s'élargira au-delà des proches actuels (voir
+  backlog).
+
+Cette approche est fondée sur la réalité du contexte actuel : Mika travaille
+avec des partenaires de confiance à faible volume (~500 items/an), ce qui
+rend la surveillance manuelle via le journal suffisante.
 
 ## Persona 3 — Les employés futurs (Phase C)
 
@@ -110,7 +121,7 @@ formation. C'est la métrique ultime de qualité du produit.
 | Persona | Impact sur le MVP |
 |---------|-------------------|
 | Mika | Toutes les features du MVP sont pour lui |
-| Partenaires | Système de rôles simple + IDs opaques obligatoires |
+| Partenaires | Accès complet + journal d'événements comme protection (ADR-007) |
 | Employés futurs | Pas de feature dédiée, mais chaque écran doit passer le test "apprenable en 15 minutes" |
 
 ---
