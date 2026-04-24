@@ -65,7 +65,7 @@ modèle — ce que Mika étiquette, décrit, vend, tracque.
 - `prix_vente_affiche` — prix courant affiché à la vente
 - `notes` — texte libre
 - `data_quality_tier` — hérité du Lot
-- `statut` — `draft` / `en_stock` / `en_vente` / `vendu` /
+- `statut` — `draft` / `en_stock` / `en_vente` / `vendu` / `donne` /
   `rebute_total` / `detache` / `archive`
 
 **Les 3 natures expliquées** :
@@ -142,6 +142,10 @@ d'un kit.
 - `retour_partiel` — retour partiel post-vente
 - `indemnisation` — rabais post-vente
 - `echange` — combinaison retour + nouvelle vente
+- `cadeau` — sortie d'un kit sans transaction commerciale (cadeau,
+  usage personnel, promotion). Le kit passe au statut `donne`. Pas
+  d'impact financier dans l'app. Pas de transmission à QuickBooks.
+  Note libre obligatoire pour indiquer destinataire et/ou raison.
 
 **Structure d'un événement** :
 
@@ -184,6 +188,9 @@ numérotation).
 - Une variante ne peut pas avoir plus de pneus que son kit parent
 - Un kit détaché (Nature B → A + C) conserve la trace du lien
 - Un kit rebut total garde tous ses attributs pour traçabilité
+- Un kit ne peut avoir qu'un seul statut final (`vendu`, `donne`,
+  `rebute_total`). Ces trois statuts sont mutuellement exclusifs et
+  immuables une fois atteints (voir ADR-005 sur l'immutabilité).
 
 **Soft delete systématique** :
 

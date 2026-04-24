@@ -365,6 +365,66 @@ Mika sur l'importance de planifier plutôt que d'improviser.
 
 ---
 
+### Q9 — Notes de crédit fournisseur rétroactives non-spécifiques
+
+**Question** : Comment traiter les notes de crédit fournisseur qui ne
+sont pas liées à un lot spécifique (ristournes annuelles, bonus de
+fidélité, rebates volume, ajustements de fin d'année)?
+
+**Contexte**
+
+Les notes de crédit rétroactives sont des ajustements financiers qui
+**ne correspondent à aucun lot ou kit précis**. Exemples :
+
+- Ristourne annuelle de fidélité : le fournisseur t'envoie 300$ en
+  fin d'année pour ton volume d'achat total
+- Rebate volume : après un seuil d'achats atteint, remise appliquée
+  sur les futures factures
+- Ajustement commercial : correction d'une erreur fournisseur sur
+  plusieurs lots
+
+Ces ajustements diffèrent des retours fournisseur traités dans
+l'ADR-009 (qui concernent un kit précis défectueux).
+
+**QuickBooks offre une feature native pour ça** — "Vendor Credit" —
+qui gère ces ajustements dans le flux comptable standard. La
+question est : est-ce suffisant, ou l'app doit-elle avoir une
+visibilité sur ces ajustements?
+
+**Dimensions à considérer**
+
+- **Séparation des rôles** (vision ADR integration-quickbooks) :
+  QuickBooks = source de vérité comptable. Argument pour laisser
+  ces notes uniquement dans QuickBooks.
+- **Visibilité opérationnelle** : si on veut calculer le coût réel
+  ajusté par fournisseur (incluant les ristournes annuelles), l'app
+  a besoin de ces données.
+- **Calcul de marge fournisseur** : les rapports comparant les
+  fournisseurs entre eux seraient plus précis avec les notes de
+  crédit incluses.
+- **Complexité d'intégration** : remonter les Vendor Credits de
+  QuickBooks vers l'app ajoute une couche bidirectionnelle.
+
+**Questions secondaires**
+
+- Les notes de crédit doivent-elles être visibles dans la fiche
+  fournisseur de l'app, ou rester invisibles?
+- Les rapports de marge par fournisseur doivent-ils être "brut"
+  (sans notes de crédit) ou "net ajusté"?
+- Y a-t-il un risque de double comptage si l'app et QuickBooks
+  suivent tous les deux ces ajustements?
+
+**Quand la trancher** : lors du **cadrage détaillé de l'intégration
+QuickBooks** (avant la Phase C). Pas pertinent au MVP puisque
+l'intégration QuickBooks n'existe pas encore.
+
+**Dernière discussion** : Paquet 2 (finances), question D. Mika a
+explicitement demandé de revisiter ce sujet plus tard, en
+s'assurant que la robustesse du traitement soit équivalente au
+reste du cadrage.
+
+---
+
 ## Questions archivées
 
 *Cette section accueillera les questions tranchées au fil du temps,
@@ -382,3 +442,5 @@ avec référence à l'ADR ou au document qui les a tranchées.*
   continuité des données).
 - **Paquet 2 (finances, intermédiaire)** : ajout de Q8 (stratégie de
   bascule : migration, cohabitation, tests, formation).
+- **Paquet 2 (fermeture)** : ajout de Q9 (notes de crédit fournisseur
+  rétroactives non-spécifiques).

@@ -192,4 +192,68 @@ financier + physique + géographique + rôles.
 **Phase cible** : Phase B
 **Lié à** : questions-ouvertes.md (question "Initiation d'achat")
 
+### [NOUVEAU] Pneus récupérés gratuitement — source d'acquisition
+
+**Description** : permettre de marquer un lot comme ayant une source
+d'acquisition "gratuit" (pneus trouvés, donnés par un ami mécanicien,
+récupérés sans transaction). Distinct d'un lot acheté à 0$, car ça
+permet de catégoriser les acquisitions dans les rapports.
+
+**Workaround MVP** : créer un lot avec prix d'achat 0$. Fonctionne
+mais ne permet pas de distinguer un lot "bonus commercial" d'un lot
+"trouvé" dans les statistiques.
+
+**Valeur** : moyenne (utile pour analyses de sources d'acquisition)
+**Complexité** : basse (nouveau champ sur Lot)
+**Phase potentielle** : Phase B
+
+---
+
+### [NOUVEAU] Échanges de services / troc
+
+**Description** : gérer les cas où des pneus sont échangés contre un
+service (plomberie, réparation, etc.) sans argent qui change de
+mains. Nécessite une valorisation comptable du service reçu.
+
+**Workaround MVP** : traiter comme un cadeau (statut `donne` avec
+note) + comptabiliser manuellement dans QuickBooks.
+
+**Valeur** : faible (très rare)
+**Complexité** : haute (valorisation comptable, multi-parties)
+**Phase potentielle** : Phase C, si fréquence augmente
+
+---
+
+### [NOUVEAU] Sortie non-vendue avec sous-catégorisation
+
+**Description** : enrichir l'action "Donner" du MVP avec des
+sous-catégories (cadeau familial, promotion marketing, cadeau
+client, usage personnel) pour analyses fines. Au MVP, l'action
+"Donner" existe avec note libre seulement.
+
+**Valeur** : moyenne (utile pour analyses fiscales)
+**Complexité** : basse (liste déroulante + règles de catégorisation)
+**Phase potentielle** : Phase B
+
+**Lien** : feature MVP de base introduite dans le Paquet 2 (question
+D). L'enrichissement concerne uniquement la sous-catégorisation.
+
+---
+
+### [NOUVEAU] Motif de vente à perte volontaire
+
+**Description** : permettre de marquer une vente comme "vente à perte
+volontaire" avec motif (liquidation saisonnière, défaut découvert
+tardivement, kit stagnant). Au MVP, le système détecte
+automatiquement les ventes à perte par calcul (prix < coût alloué)
+mais sans catégorisation du motif.
+
+**Valeur** : moyenne (utile pour analyses stratégiques)
+**Complexité** : basse (champ optionnel)
+**Phase potentielle** : Phase B
+
+**Décision MVP** : rejeté au MVP — Mika considère que "c'est toujours
+une vente à perte", peu importe le motif. Le chiffre parle de
+lui-même. À revisiter si les analyses futures révèlent un besoin.
+
 ---

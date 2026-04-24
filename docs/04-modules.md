@@ -29,6 +29,12 @@ Gestion structurée des lots, kits et variantes.
 - Gestion des 5 événements post-vente (annulation, retour complet,
   retour partiel, indemnisation, échange)
 - Gestion des rebuts partiels et totaux
+- Action "Donner" sur un kit en stock (statut `donne`, sans prix,
+  avec note libre obligatoire pour indiquer destinataire/raison) —
+  alternative à "Vendre" et "Rebuter" quand un kit sort de
+  l'inventaire sans transaction commerciale. Pas d'intégration
+  QuickBooks (cohérent avec la règle Revenu Québec sur les cadeaux
+  de promotion).
 - Gestion des retours fournisseur (avant mise en stock — ADR-009)
 - Workflow d'allocation des coûts avec champs vides + boutons raccourcis
   (ADR-008) : "Diviser également", "Diviser proportionnellement aux pneus",
@@ -62,6 +68,8 @@ Voir `docs/decisions/ADR-011-pricing-mvp.md` pour la catégorisation
 usure et la description.
 Voir `docs/decisions/ADR-012-emplacements-mvp.md` pour la gestion
 des emplacements.
+Le statut `donne` et l'événement `cadeau` sont documentés dans
+`docs/06-modele-donnees.md`.
 
 ### Module 3 — Finance (MVP)
 
