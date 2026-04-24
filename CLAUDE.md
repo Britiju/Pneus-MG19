@@ -71,7 +71,21 @@ Claude n'a pas de mémoire entre sessions. Au début de chaque session :
 4. **Ne jamais présumer d'un contexte non documenté** — si une décision
    n'est pas dans un ADR, considérer qu'elle n'est pas encore prise
 
+## Pour démarrer une session de cadrage
+
+**Lis ces deux documents en priorité** :
+
+1. **`docs/journal-avancement.md`** — état actuel du projet,
+   prochaine étape prévue, questions ouvertes actives
+2. **`docs/protocole-sessions.md`** — comment conduire une session
+   avec Mika, patterns à respecter, checklist de fermeture
+
+Ces deux documents te donneront tout le contexte nécessaire pour
+proposer une suite productive à Mika.
+
 ## Navigation dans la documentation
+- docs/journal-avancement.md : cerveau externe du projet — état actuel et prochaine étape (LIRE EN PRIORITÉ)
+- docs/protocole-sessions.md : protocole de conduite des sessions avec Mika (LIRE EN PRIORITÉ)
 - docs/01-vision-produit.md : le pourquoi du projet (13 principes)
 - docs/02-personae-utilisateurs.md : qui utilise l'app
 - docs/03-cycle-de-vie.md : les étapes métier
