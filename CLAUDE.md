@@ -87,7 +87,7 @@ Claude n'a pas de mémoire entre sessions. Au début de chaque session :
 - docs/questions-ouvertes.md : sujets en cours non tranchés
 - docs/backlog.md : idées hors-scope capturées pour évaluation future
 - docs/pratiques-pre-mvp.md : pratiques à adopter dans les Excel actuels avant la bascule MVP
-- docs/sessions/ : fiches de déconstruction des étapes métier
+- docs/sessions/ : archives des sommaires de cadrage exécutés (voir docs/sessions/README.md — documents historiques, ne pas ré-exécuter)
 - docs/decisions/ : ADR (Architecture Decision Records)
 
 ## Conventions de code (à compléter en Phase 4)
