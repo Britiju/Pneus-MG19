@@ -392,3 +392,78 @@ technique)
 **Lien** : `docs/decisions/ADR-015-loi25-mvp.md`
 
 ---
+
+### [NOUVEAU] Rôle `partenaire` distinct (palier 1.5)
+
+**Contexte** : ADR-016 définit 2 rôles hardcodés au MVP (admin, power_user).
+Les partenaires occasionnels sont power_user par défaut, avec les mêmes
+accès que Mika — y compris aux marges et au dashboard financier global.
+
+**Évolution prévue** : introduire un 3e rôle `partenaire` hardcodé,
+"rapidement post-MVP" (Phase B early). Ce rôle aura des restrictions à
+définir à ce moment-là, probablement :
+- Pas d'accès aux prix d'achat et marges
+- Pas d'accès au dashboard financier global
+- Accès aux opérations de vente et gestion d'inventaire
+
+**Déclencheur** : ajout d'un partenaire moins proche, ou inconfort de
+Patrick/Mika à partager les données financières avec les partenaires
+actuels.
+
+**Référence** : ADR-016, palier 1.5.
+
+---
+
+### [NOUVEAU] Interface de gestion des rôles utilisateurs (palier 2)
+
+**Contexte** : ADR-016, palier 2. Au MVP et en palier 1.5, les rôles sont
+hardcodés et leur assignation se fait en base directement ou via un petit
+écran admin. Le palier 2 prévoit une interface complète d'assignation des
+rôles existants à des utilisateurs depuis l'application.
+
+**Scope indicatif** : écran admin listant tous les utilisateurs avec leur
+rôle actuel, possibilité de changer le rôle (parmi les rôles préconfigurés),
+historique des changements de rôle dans le journal d'événements.
+
+**Déclencheur** : croissance du nombre d'utilisateurs au-delà de ~5-7, ou
+besoin de faire évoluer les rôles d'utilisateurs existants sans intervention
+technique.
+
+**Référence** : ADR-016, palier 2.
+
+---
+
+### [NOUVEAU] Permissions granulaires feature-par-feature (palier 3)
+
+**Contexte** : ADR-016, palier 3. Une fois que l'application est stabilisée
+et que les patterns d'usage réels sont connus, possibilité de créer des
+rôles personnalisés avec des permissions feature-par-feature (au lieu de
+rôles préconfigurés).
+
+**Déclencheur** : à réévaluer en Phase tardive. Pas pertinent avant que
+l'application soit en production stable depuis plusieurs mois.
+
+**Référence** : ADR-016, palier 3.
+
+---
+
+### [NOUVEAU] Digest quotidien des notifications admin
+
+**Contexte** : ADR-016, pattern "Notification admin asynchrone". Au MVP, les
+notifications sont envoyées par email immédiat (un email par action
+sensible). En Phase B, basculement prévu vers un digest quotidien
+regroupé.
+
+**Scope indicatif** : un seul email par jour récapitulant toutes les
+actions sensibles effectuées par les power users, avec liens directs vers
+les fiches concernées. Peut-être paramétrable (fréquence, heure d'envoi,
+seuil de déclenchement immédiat pour les actions particulièrement
+sensibles).
+
+**Déclencheur** : volume de notifications quotidiennes au-delà de 3-5
+emails, ou retour utilisateur de Patrick indiquant une fatigue de
+notification.
+
+**Référence** : ADR-016, section "Pattern Notification admin asynchrone".
+
+---

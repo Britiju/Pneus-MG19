@@ -1,5 +1,13 @@
 # ADR-007 — Modèle d'accès au MVP : ouvert + traçabilité
 
+> **⚠️ Note de révision (Paquet 5)** : le principe d'accès 100% ouvert défini
+> dans cet ADR est **précisé** par ADR-016 (Rôles utilisateurs au MVP). Le
+> principe fondamental "protection par traçabilité plutôt que permissions
+> granulaires" reste valide. Ce qui change : l'accès est ouvert **dans le
+> périmètre du rôle** de l'utilisateur (admin ou power_user), pas pour tous
+> les utilisateurs sur toutes les fonctionnalités. Consulter ADR-016 pour le
+> détail de la matrice rôle × action.
+
 ## Statut
 
 Acceptée — Phase 1 de cadrage, Paquet 1.

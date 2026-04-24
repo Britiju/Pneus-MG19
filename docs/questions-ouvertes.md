@@ -444,3 +444,6 @@ avec référence à l'ADR ou au document qui les a tranchées.*
   bascule : migration, cohabitation, tests, formation).
 - **Paquet 2 (fermeture)** : ajout de Q9 (notes de crédit fournisseur
   rétroactives non-spécifiques).
+- **Paquet 5 (utilisateurs et permissions, fermeture)** : aucune nouvelle
+  question ouverte. ADR-016 tranche le modèle de rôles au MVP et précise
+  ADR-007. Pattern "Notification admin asynchrone" inventé et documenté.

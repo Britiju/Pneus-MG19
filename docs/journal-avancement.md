@@ -14,28 +14,34 @@
 
 **Phase du projet** : Cadrage actif (pas encore en développement)
 
-**Paquets critiques complétés** : 1, 2, 4
+**Paquets critiques complétés** : 1, 2, 4, 5
 
-**Paquet en cours** : aucun (session de cadrage terminée)
+**Paquet en cours** : aucun (session de cadrage Paquet 5 terminée)
 
 ## Prochaine étape prévue
 
-**Paquet 3 — Données historiques et migration Excel**
+**Question sur la portée opérationnelle du tiering (Paquet 3A ou Q10)**
 
-Objectifs de ce paquet :
-- Traiter l'import du legacy Excel complet (les fichiers sont
-  en cours de préparation par Mika)
-- Résoudre Q5 (migration des codes legacy 1A, 2B, V01, V02 vers le
-  nouveau système A247)
-- Résoudre Q1 (Work Order / initiation d'achat — toute la phase
-  avant qu'un lot soit physiquement acquis)
-- Valider que le modèle de données supporte tous les cas historiques
-- Tester la robustesse du tiering ADR-002 (data_quality_tier)
+Patrick a soulevé en fin de Paquet 5 une question qui appartient au Paquet 3
+mais qui peut être traitée sans les données historiques manquantes :
 
-**Prérequis** : Mika apporte les fichiers historiques complets
-préparés.
+> Quand un kit legacy (importé d'Excel) est vendu dans l'app, comment se
+> comporte-t-il par rapport aux workflows app-native ? Apparaît-il comme
+> un kit app-native vendu, ou reste-t-il visuellement/analytiquement
+> "legacy" ? Quand une vente app-native porte sur un kit legacy, quelles
+> données deviennent fiables et lesquelles restent suspectes ?
 
-**Durée estimée** : 2-3 sessions.
+Cette question éclaire comment `data_quality_tier` (ADR-002) se propage,
+s'affiche, et influence les analyses. Elle est orthogonale à Q5 (migration
+des codes) et Q1 (work order) — elle peut donc être traitée indépendamment.
+
+**Durée estimée** : 1 session dédiée.
+
+**Prérequis** : aucun (les données manquantes ne sont pas nécessaires pour
+cette discussion, qui porte sur le comportement du modèle).
+
+**Le reste du Paquet 3 (Q1 + Q5)** reste bloqué en attente des fichiers
+historiques complets que Patrick doit rassembler.
 
 ## Paquets terminés
 
@@ -59,12 +65,22 @@ RendezVous (plusieurs RDV parallèles par kit), iframe Google
 Calendar, approche Loi 25 minimaliste, vision canaux de vente.
 Raisonnement narratif à produire dans une session dédiée.
 
+### Paquet 5 — Utilisateurs et permissions (complété)
+
+Modèle à 2 rôles hardcodés au MVP (admin + power_user), stratégie en 4
+paliers, matrice rôle × action complète, pattern "notification admin
+asynchrone", inscription par invitation, script de setup du premier admin,
+clarification terminologique propriétaires/admin/power_user. ADR-016 créé,
+ADR-007 révisé, CLAUDE.md mis à jour. Raisonnement complet dans le
+sommaire de fermeture.
+
 ## Paquets restants à traiter
 
 **Priorité haute (avant développement)** :
-- Paquet 3 — Données historiques (prochaine session)
-- Paquet 5 — Utilisateurs et permissions (court, déjà largement
-  tranché par ADR-007)
+- **Question Paquet 3A** — portée opérationnelle du tiering (prochaine
+  session, ne nécessite pas les données historiques manquantes)
+- **Paquet 3 complet** — données historiques (bloqué : Patrick rassemble
+  les fichiers manquants)
 
 **Priorité moyenne (peut se faire en parallèle du développement)** :
 - Paquet 6 — Dashboard
@@ -121,19 +137,20 @@ pertinentes pour les prochaines sessions :
 
 ### Session avril 2026 (session actuelle)
 
-**Durée** : longue (6+ heures)
+**Durée** : longue (plusieurs heures)
 **Accomplissements** :
-- Fermeture complète du Paquet 2 (sommaire intermédiaire +
-  sommaire de fermeture, convention `docs/sessions/` formalisée)
-- Production du raisonnement narratif Paquet 2 (1740 lignes,
-  incluant auto-critique honnête de l'assistant)
-- Cadrage complet du Paquet 4 (3 ADR + document de vision
-  `13-integration-canaux-vente.md` + enrichissements modèle de
-  données)
-- Archivage du sommaire Paquet 4
-- Création du protocole de sessions (ce document)
+- Tentative d'ouverture Paquet 3 : bloquée faute de données historiques
+  complètes
+- Bascule sur Paquet 5 (Utilisateurs et permissions), complété
+- Révision majeure d'ADR-007 via ADR-016
+- Invention du pattern "Notification admin asynchrone"
+- Clarification terminologique Patrick/Mika (propriétaires/admin/power user)
+- Question soulevée par Patrick en fin de paquet : portée opérationnelle
+  du tiering → devient prochaine étape
 
-**Prochaine étape décidée** : Paquet 3 (données historiques)
+**Prochaine étape décidée** : question Paquet 3A (tiering opérationnel),
+puis reprise Paquet 3 complet quand les données manquantes seront
+disponibles.
 
 ### Sessions précédentes
 
@@ -142,6 +159,7 @@ Pour l'historique complet, voir :
 - `docs/sessions/sommaire-paquet-2-intermediaire.md`
 - `docs/sessions/sommaire-paquet-2-fermeture.md`
 - `docs/sessions/sommaire-paquet-4-fermeture.md`
+- `docs/sessions/sommaire-paquet-5-fermeture.md`
 
 Et les raisonnements narratifs :
 - `docs/decisions/raisonnement-paquet-1.md`

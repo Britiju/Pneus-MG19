@@ -8,16 +8,36 @@ Ce fichier est la source de vérité du contexte projet.
 Plateforme web pour gérer le cycle de vie complet d'un inventaire de pneus
 usagés — de l'acquisition à la vente, avec dashboards analytiques.
 
-## Le propriétaire
-Mika est le propriétaire. Le projet vise à libérer Mika des tâches
-opérationnelles répétitives via un système fool-proof opérable par
-un employé non-spécialiste.
+## Les propriétaires du projet
+
+- **Patrick** — père de Mika, VP opérations dans une entreprise de
+  consultation en design industriel. Porte la responsabilité architecturale,
+  financière, et système du projet. Rôle applicatif : **admin**.
+- **Mika** — fils de Patrick, entrepreneur talentueux. Porte la
+  responsabilité opérationnelle quotidienne (vente, inventaire, relation
+  client). Rôle applicatif : **power_user**.
+
+Le projet vise à libérer Mika des tâches opérationnelles répétitives via un
+système fool-proof opérable par un employé non-spécialiste. Patrick conduit
+le cadrage structurel et l'architecture ; Mika est l'utilisateur principal
+quotidien.
+
+**Note terminologique importante** :
+- "Propriétaires du projet" = Patrick + Mika ensemble (sens business)
+- "Admin système" = Patrick seul (rôle applicatif avec accès étendus)
+- "Power user" = Mika + partenaires occasionnels (rôle applicatif pour
+  les opérations quotidiennes)
+
+Voir ADR-016 pour le détail du modèle de rôles.
 
 ## Les utilisateurs actuels
-- Mika (propriétaire)
-- 1-2 partenaires occasionnels (accès complet au MVP — voir ADR-007)
+
+- Patrick (admin)
+- Mika (power_user)
+- 1-2 partenaires occasionnels (power_user au MVP — voir ADR-007 et ADR-016)
 - À terme : employés opérationnels (le système doit être exploitable
-  sans tribal knowledge)
+  sans tribal knowledge, probablement avec un rôle `partenaire` distinct —
+  voir ADR-016 palier 1.5 et backlog)
 
 ## Stack technique prévue
 - GitHub pour le code source et la documentation
@@ -104,6 +124,7 @@ proposer une suite productive à Mika.
 - docs/pratiques-pre-mvp.md : pratiques à adopter dans les Excel actuels avant la bascule MVP
 - docs/sessions/ : archives des sommaires de cadrage exécutés (voir docs/sessions/README.md — documents historiques, ne pas ré-exécuter)
 - docs/decisions/ : ADR (Architecture Decision Records)
+- docs/decisions/ADR-016-roles-utilisateurs-mvp.md : modèle à 2 rôles hardcodés, matrice rôle × action, stratégie en 4 paliers
 
 ## Conventions de code (à compléter en Phase 4)
 À définir quand la stack technique sera validée.
