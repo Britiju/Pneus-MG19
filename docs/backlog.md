@@ -257,3 +257,138 @@ une vente à perte", peu importe le motif. Le chiffre parle de
 lui-même. À revisiter si les analyses futures révèlent un besoin.
 
 ---
+
+### [NOUVEAU] Intégration Google Calendar (Niveau 1 — création unidirectionnelle)
+
+**Description** : création automatique d'événement Google Calendar
+quand un RDV est créé dans l'app. Migration des Tâches actuelles
+vers des Événements dans un calendrier MG19 dédié.
+
+**Valeur** : haute (élimine la double saisie)
+**Complexité** : moyenne (OAuth Google + API Calendar)
+**Phase potentielle** : Phase B
+**Lien** : `docs/decisions/ADR-014-rendez-vous-mvp.md`,
+`docs/13-integration-canaux-vente.md`
+
+---
+
+### [NOUVEAU] Rappels automatiques RDV par SMS/email
+
+**Description** : l'app envoie automatiquement un rappel au client
+quelques heures avant un RDV (SMS ou email selon la coordonnée
+disponible). Le client confirme ou annule. Réduit les no-shows et
+les déplacements inutiles de Mika.
+
+**Valeur** : très haute (économie de déplacements, professionnalisme)
+**Complexité** : moyenne (intégration service tiers + scheduling)
+**Phase potentielle** : Phase B
+**Prérequis** : intégration Google Calendar (Événements)
+
+---
+
+### [NOUVEAU] Fusion automatique des RDV multiples par téléphone
+
+**Description** : quand un téléphone apparaît dans plusieurs RDV,
+l'app propose de fusionner en "fiche client" automatiquement.
+Première étape vers une entité Client consolidée.
+
+**Valeur** : moyenne (insights sur clients récurrents)
+**Complexité** : basse à moyenne
+**Phase potentielle** : Phase B
+
+---
+
+### [NOUVEAU] Fiche Intérêt / pipeline de prospection
+
+**Description** : capture structurée des prospects **avant** le
+seuil d'entrée actuel (RDV + téléphone). Statuts : premier_contact,
+en_discussion, rdv_pris, perdu, converti. Permet un pipeline de
+vente visible.
+
+**Valeur** : haute (visibilité pipeline)
+**Complexité** : moyenne
+**Phase potentielle** : Phase B ou C
+**Décision MVP** : explicitement rejeté — Mika gère les prospects
+mentalement dans Messenger tant que le seuil de commitment (RDV +
+téléphone) n'est pas atteint.
+
+---
+
+### [NOUVEAU] Suggestions automatiques de kits équivalents
+
+**Description** : quand un kit est vendu à quelqu'un d'autre, l'app
+propose automatiquement des kits équivalents aux autres prospects
+qui avaient un RDV sur ce kit. Réduit la perte de leads.
+
+**Valeur** : haute (conversion des prospects perdus)
+**Complexité** : moyenne (algorithme de similarité)
+**Phase potentielle** : Phase B
+
+---
+
+### [NOUVEAU] Envoi automatique de factures par email via QuickBooks
+
+**Description** : intégration QuickBooks qui génère et envoie
+automatiquement les factures par email aux clients après chaque
+vente. Élimine les oublis de facturation post-vente.
+
+**Valeur** : très haute (professionnalisme, trace comptable)
+**Complexité** : haute (intégration QuickBooks + flux de
+facturation)
+**Phase potentielle** : Phase C
+**Prérequis** : intégration QuickBooks active
+**Lien** : `docs/11-integration-quickbooks.md`
+
+---
+
+### [NOUVEAU] Envoi automatique de factures par SMS
+
+**Description** : pour les clients qui préfèrent SMS, envoi
+automatique du lien de facture via service tiers (Twilio ou
+équivalent).
+
+**Valeur** : moyenne (pour certains clients)
+**Complexité** : moyenne (intégration Twilio + génération de lien)
+**Phase potentielle** : Phase B ou C
+
+---
+
+### [NOUVEAU] Statistiques de conversion et performance RDV
+
+**Description** : dashboard analytique sur les RDV : taux de
+conversion, taux de no-show, temps moyen entre premier contact et
+vente, rabais moyens par catégorie.
+
+**Valeur** : moyenne (insights business)
+**Complexité** : basse (basé sur données existantes)
+**Phase potentielle** : Phase B
+
+---
+
+### [NOUVEAU] Fiches commerce réutilisables dans l'app
+
+**Description** : création de fiches commerce persistantes dans
+l'app (pas juste dans QuickBooks), permettant de sélectionner un
+commerce existant lors d'une nouvelle vente plutôt que de ressaisir.
+
+**Valeur** : moyenne (élimine la double saisie pour commerces
+récurrents)
+**Complexité** : basse à moyenne (nouvelle table + sélecteur)
+**Phase potentielle** : Phase B ou C
+**Prérequis** : idéalement après intégration QuickBooks pour sync
+
+---
+
+### [NOUVEAU] Politique de confidentialité Loi 25
+
+**Description** : rédaction et publication d'une politique de
+confidentialité conforme Loi 25, avec désignation formelle du RPRP
+et mécanisme de consentement.
+
+**Valeur** : obligatoire avant mise en production ouverte
+**Complexité** : basse (rédaction) à moyenne (mise en œuvre
+technique)
+**Phase potentielle** : Paquet 8 (stratégie de bascule)
+**Lien** : `docs/decisions/ADR-015-loi25-mvp.md`
+
+---

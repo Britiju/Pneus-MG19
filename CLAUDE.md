@@ -84,6 +84,7 @@ Claude n'a pas de mémoire entre sessions. Au début de chaque session :
 - docs/10-ux-design-system.md : patterns UI
 - docs/11-integration-quickbooks.md : vision stratégique intégration comptable (Phase C)
 - docs/12-integration-physique-reseau.md : appareils physiques (imprimantes, scanners, terminaux) et topologie réseau
+- docs/13-integration-canaux-vente.md : vision stratégique des canaux de vente (Google Calendar, site web, commerce comptoir, CRM, Messenger)
 - docs/questions-ouvertes.md : sujets en cours non tranchés
 - docs/backlog.md : idées hors-scope capturées pour évaluation future
 - docs/pratiques-pre-mvp.md : pratiques à adopter dans les Excel actuels avant la bascule MVP

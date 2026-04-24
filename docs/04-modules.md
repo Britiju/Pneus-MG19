@@ -52,6 +52,17 @@ Gestion structurée des lots, kits et variantes.
 - Catégorisation automatique de l'usure en saisons restantes (pour
   comparables et description)
 - Bouton "Copier la description" pour coller dans Marketplace
+- Gestion des rendez-vous attachés aux kits (création, visualisation,
+  transitions de statut)
+- Vue "Mes RDV à venir" (liste chronologique)
+- Affichage des RDV actifs sur la fiche d'un kit (avec prix
+  négociés visibles)
+- Indicateurs visuels sur les listes d'inventaire (kits avec RDV
+  actifs)
+- Recherche d'inventaire performante et accessible depuis partout
+- Fonction "Trouver des kits similaires" depuis une fiche kit
+- Section "Calendrier" avec iframe Google Calendar intégré
+- Champ "notes de prospection" sur chaque kit (capture opportuniste)
 
 **Détails techniques** :
 
@@ -70,6 +81,8 @@ Voir `docs/decisions/ADR-012-emplacements-mvp.md` pour la gestion
 des emplacements.
 Le statut `donne` et l'événement `cadeau` sont documentés dans
 `docs/06-modele-donnees.md`.
+Voir `docs/decisions/ADR-014-rendez-vous-mvp.md` pour la gestion
+des rendez-vous.
 
 ### Module 3 — Finance (MVP)
 
@@ -90,6 +103,13 @@ Suivi des marges et rapports financiers.
   affiché, trié par récence
 - Signaux visuels sur kits stagnants (seuils par saison, seuils
   précis à définir au Paquet 6)
+- Distinction Particulier vs Commerce sur chaque vente
+- Capture du mode de facturation (email / sms / papier / refuse)
+- Tableau de bord "Factures à envoyer" (liste opérationnelle des
+  ventes non-facturées)
+- Marquage manuel "Facture envoyée" avec horodatage automatique
+- Gestion des termes de paiement pour les commerces (comptant /
+  net 15/30/60)
 
 **Structure préparée pour Phase B/C** :
 
@@ -100,6 +120,8 @@ Suivi des marges et rapports financiers.
 
 Voir `docs/decisions/ADR-011-pricing-mvp.md` pour le pricing et les
 comparables.
+Voir `docs/decisions/ADR-013-clients-facturation-mvp.md` pour la
+structure client et facturation.
 
 ### Module 4 — Saisie mobile (Phase B)
 

@@ -64,6 +64,9 @@ modèle — ce que Mika étiquette, décrit, vend, tracque.
   voir ADR-008)
 - `prix_vente_affiche` — prix courant affiché à la vente
 - `notes` — texte libre
+- `notes_prospection` — texte libre (optionnel). Champ pour capture
+  opportuniste d'infos de prospection (noms, téléphones, prix
+  négociés informels, etc.) hors du cadre structuré des rendez-vous.
 - `data_quality_tier` — hérité du Lot
 - `statut` — `draft` / `en_stock` / `en_vente` / `vendu` / `donne` /
   `rebute_total` / `detache` / `archive`
@@ -117,6 +120,108 @@ Champ texte libre sur le Kit et/ou la Variante, pour capturer tout
 particulière, consigne pour la vente, etc.).
 
 Pas de structure imposée. Pas d'obligation de remplir.
+
+## Niveau — Vente
+
+Une **Vente** représente une transaction finalisée sur un kit (ou
+une variante). La table `ventes` est enrichie au Paquet 4 pour
+distinguer particuliers et commerces, capturer le mode de
+facturation et suivre l'envoi effectif de la facture.
+
+**Champs communs sur toute vente** :
+
+- `type_client` — enum `particulier` / `commerce` (obligatoire)
+- `mode_paiement` — enum `cash` / `interac` / `autre`
+- `statut_paiement` — enum `paye` / `a_recevoir` (défaut `paye`)
+- `mode_facturation` — enum `email` / `sms` / `papier` /
+  `refuse_par_client`
+- `coordonnee_facturation` — texte (conditionnel selon
+  `mode_facturation`)
+- `facture_envoyee` — booléen (défaut `false`)
+- `date_envoi_facture` — timestamp (rempli automatiquement quand
+  `facture_envoyee` passe à `true`)
+
+**Champs pour Particulier** (tous optionnels) :
+
+- `particulier_prenom` — texte
+- `particulier_telephone` — texte
+- `particulier_email` — texte
+
+**Champs pour Commerce** :
+
+- `commerce_nom` — texte (obligatoire si `type_client = commerce`)
+- `commerce_personne_ressource` — texte (optionnel)
+- `commerce_email` — texte (optionnel)
+- `commerce_telephone` — texte (optionnel)
+- `commerce_termes_paiement` — enum `comptant` / `net_15` /
+  `net_30` / `net_60` / `autre` (obligatoire si
+  `type_client = commerce`)
+
+**Validation conditionnelle** :
+
+- Si `mode_facturation = email` → `coordonnee_facturation` doit être
+  un email valide et non vide
+- Si `mode_facturation = sms` → `coordonnee_facturation` doit être
+  un numéro de téléphone valide et non vide
+
+**Champs de consentement (infrastructure latente Loi 25)** :
+
+Ces champs sont présents dès le MVP mais **inactifs** (vides/false).
+Ils permettent d'éviter un refactor lors de l'activation des
+features marketing en Phase B/C.
+
+- `consentement_facturation` — booléen (implicite si email fourni
+  pour facture)
+- `consentement_newsletter` — booléen (opt-in explicite requis en
+  Phase B+)
+- `consentement_relances` — booléen (opt-in explicite requis en
+  Phase B+)
+- `date_consentement_newsletter` — timestamp (optionnel)
+- `date_consentement_relances` — timestamp (optionnel)
+
+**Voir** : `docs/decisions/ADR-013-clients-facturation-mvp.md` et
+`docs/decisions/ADR-015-loi25-mvp.md`.
+
+## Niveau — Rendez-vous
+
+Un **RendezVous** représente un engagement pris avec un prospect
+pour un kit précis. Plusieurs rendez-vous peuvent être actifs en
+parallèle sur un même kit.
+
+**Attributs** :
+
+- `rendez_vous_id` — identifiant technique (UUID + internal_id)
+- `kit_id` — référence vers le kit (obligatoire)
+- `prenom` — texte libre (optionnel)
+- `telephone` — texte (obligatoire — seuil d'entrée dans le système)
+- `date_heure` — timestamp
+- `prix_negocie_attendu` — décimal (optionnel, **non-éditable après
+  saisie**)
+- `statut` — enum `planifie` / `honore_vendu` / `honore_pas_vendu` /
+  `no_show` / `annule`
+- `notes` — texte libre
+- `lien_google` — URL optionnelle
+- `data_quality_tier` — hérité
+- Timestamps standards
+
+**Règles** :
+
+- Le téléphone est obligatoire (règle d'entrée)
+- Un kit peut avoir plusieurs RDV actifs (statut `planifie`) en
+  parallèle
+- Le kit **ne passe pas** à un statut `reserve` — il reste
+  `en_vente`
+- Le prix négocié attendu, une fois saisi, n'est plus éditable
+  (engagement historique, voir Principe 11)
+
+**Transitions** :
+
+- `planifie` → `honore_vendu` (déclenche workflow de vente du kit)
+- `planifie` → `honore_pas_vendu`
+- `planifie` → `no_show`
+- `planifie` → `annule`
+
+**Voir** : `docs/decisions/ADR-014-rendez-vous-mvp.md`
 
 ## Journal d'événements
 
