@@ -124,7 +124,6 @@ proposer une suite productive à Mika.
 - docs/pratiques-pre-mvp.md : pratiques à adopter dans les Excel actuels avant la bascule MVP
 - docs/sessions/ : archives des sommaires de cadrage exécutés (voir docs/sessions/README.md — documents historiques, ne pas ré-exécuter)
 - docs/decisions/ : ADR (Architecture Decision Records)
-- docs/decisions/ADR-016-roles-utilisateurs-mvp.md : modèle à 2 rôles hardcodés, matrice rôle × action, stratégie en 4 paliers
 
 ## Conventions de code (à compléter en Phase 4)
 À définir quand la stack technique sera validée.

@@ -467,3 +467,49 @@ notification.
 **Référence** : ADR-016, section "Pattern Notification admin asynchrone".
 
 ---
+
+### [NOUVEAU] Distinction legacy/app-native dans les rapports et analyses
+
+**Contexte** : ADR-017 décision 7. Au MVP, les rapports du dashboard
+traitent uniformément les ventes legacy et app-native. En Phase B, quand
+les analyses deviendront plus sophistiquées, ajouter des vues qui séparent
+ou filtrent les deux types.
+
+**Scope indicatif** :
+- Filtre "legacy uniquement / app-native uniquement / tout" sur les
+  rapports avancés
+- Calculs de marge distincts pour les ventes legacy (où le prix d'achat
+  vient de l'Excel et peut être moins fiable)
+- Analyse de saisonnalité restreinte aux ventes app-native si nécessaire
+  pour la fiabilité
+- Indication dans les rapports du volume relatif (ex: "Sur les 120 ventes
+  de ce mois, 15 portaient sur des kits historiques")
+
+**Déclencheur** : demande d'analyses plus fines, ou constat que les
+données legacy biaisent significativement les indicateurs globaux.
+
+**Référence** : ADR-017, décision 7.
+
+---
+
+### [NOUVEAU] Tier granulaire (acquisition, caractérisation, vente séparés)
+
+**Contexte** : ADR-017 décision 1. Au MVP, chaque entité porte un seul
+`data_quality_tier` unique et conservé à vie. Alternative rejetée mais à
+conserver comme option future : un tier granulaire qui distingue la
+fiabilité de l'acquisition, de la caractérisation initiale, et de la
+vente séparément.
+
+**Scope indicatif** :
+- Trois champs distincts : `tier_acquisition`, `tier_caracterisation`,
+  `tier_vente`
+- Permet des analyses fines du style "marge fiable quand le prix d'achat
+  est app-native mais la vente importée d'ailleurs"
+- Ajout d'une couche de logique dans l'affichage et les calculs
+
+**Déclencheur** : constat en Phase B que le tier unique est trop grossier
+pour les besoins analytiques réels.
+
+**Référence** : ADR-017, décision 1, alternative rejetée.
+
+---

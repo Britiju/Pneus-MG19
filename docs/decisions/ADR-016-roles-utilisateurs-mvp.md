@@ -83,13 +83,13 @@ Chaque action applicative est catégorisée selon son rôle minimum requis.
 | Action | Rôle | Notes |
 |---|---|---|
 | Créer un lot, un kit | les deux | |
-| Modifier les champs standards d'un kit | les deux | |
+| Modifier les champs descriptifs d'un kit non-finalisé (legacy ou app-native) | les deux | Statut non-final = `draft`, `en_stock`, `en_vente` |
+| Modifier les champs descriptifs d'un kit finalisé | personne | Voir ADR-006 pour workflows correctifs |
 | Changer le statut d'un kit | les deux | |
 | Créer une variante | les deux | |
 | Correction de code (workflow explicite) | les deux | **Notification admin** |
 | Archiver un lot ou un kit | les deux | |
 | Supprimer physiquement | personne | Soft delete systématique (ADR-005) |
-| Modifier des données `legacy_migrated` | admin | Mémoire du business |
 
 #### Ventes et post-vente
 
@@ -156,6 +156,24 @@ Chaque action applicative est catégorisée selon son rôle minimum requis.
 | Déclencher un export/backup manuel | admin | |
 | Restaurer des données | admin | |
 | Accéder aux logs techniques | admin | |
+
+### Note sur les modifications de kits et lots historiques
+
+La règle "les deux rôles peuvent modifier les champs descriptifs d'un kit
+non-finalisé" s'applique **identiquement aux kits legacy et app-native**.
+La distinction de tier n'affecte pas les droits d'édition — elle affecte
+seulement l'affichage (indicateur discret sur la fiche) et les calculs
+analytiques (voir ADR-017).
+
+Cette règle révise explicitement une décision intermédiaire qui restreignait
+les modifications de données `legacy_migrated` à l'admin seul. Cette
+restriction a été jugée sacralisante d'erreurs historiques sans bénéfice
+réel, étant donné qu'une modification sur un kit non-finalisé n'a aucune
+conséquence externe (pas de facture émise, pas de revenu comptabilisé).
+
+Le `display_code`, en revanche, reste toujours éditable via workflow
+explicite uniquement, peu importe le tier et le statut (voir ADR-017 pour
+le raisonnement détaillé).
 
 ### Pattern "Notification admin asynchrone"
 
@@ -291,6 +309,8 @@ ADR-007 est mis à jour avec une note de révision en tête de document.
   de changement structurel, juste la cohérence avec le rôle à vérifier.
 - Le flux d'invitation utilisateur utilisera le mécanisme d'auth natif
   de Supabase — à valider au moment du développement.
+- ADR-017 précise la portée opérationnelle du tiering et les règles
+  spécifiques de modification basées sur le statut du kit/lot.
 
 ## Auteur
 

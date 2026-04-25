@@ -14,34 +14,36 @@
 
 **Phase du projet** : Cadrage actif (pas encore en développement)
 
-**Paquets critiques complétés** : 1, 2, 4, 5
+**Paquets critiques complétés** : 1, 2, 4, 5 + Paquet 3A (question
+tiering opérationnel)
 
-**Paquet en cours** : aucun (session de cadrage Paquet 5 terminée)
+**Paquet en cours** : aucun
 
 ## Prochaine étape prévue
 
-**Question sur la portée opérationnelle du tiering (Paquet 3A ou Q10)**
+**Paquet 3 complet — Données historiques et migration Excel**
 
-Patrick a soulevé en fin de Paquet 5 une question qui appartient au Paquet 3
-mais qui peut être traitée sans les données historiques manquantes :
+La question Paquet 3A (portée opérationnelle du tiering) a été fermée via
+ADR-017. Le Paquet 3 complet peut maintenant reprendre, mais il reste
+bloqué sur son prérequis d'origine :
 
-> Quand un kit legacy (importé d'Excel) est vendu dans l'app, comment se
-> comporte-t-il par rapport aux workflows app-native ? Apparaît-il comme
-> un kit app-native vendu, ou reste-t-il visuellement/analytiquement
-> "legacy" ? Quand une vente app-native porte sur un kit legacy, quelles
-> données deviennent fiables et lesquelles restent suspectes ?
+**Prérequis** : Patrick rassemble les fichiers historiques complets
+préparés. L'Excel actuel (`Database_Pneus_Unifiee.xlsx`) ne contient
+qu'une partie du legacy ; il manque notamment les codes V01/V02
+mentionnés dans la question Q5.
 
-Cette question éclaire comment `data_quality_tier` (ADR-002) se propage,
-s'affiche, et influence les analyses. Elle est orthogonale à Q5 (migration
-des codes) et Q1 (work order) — elle peut donc être traitée indépendamment.
+**Objectifs du paquet à la reprise** :
+- Import du legacy Excel complet
+- Résoudre Q5 (migration des codes legacy vers le système A247 — ou plus
+  précisément : confirmer la cohabitation et acter si une uniformisation
+  future est souhaitée)
+- Résoudre Q1 (Work Order / initiation d'achat — toute la phase
+  pré-acquisition)
+- Valider que le modèle de données supporte tous les cas historiques
+- Tester la robustesse du tiering ADR-002 + ADR-017 sur les données
+  réelles complètes
 
-**Durée estimée** : 1 session dédiée.
-
-**Prérequis** : aucun (les données manquantes ne sont pas nécessaires pour
-cette discussion, qui porte sur le comportement du modèle).
-
-**Le reste du Paquet 3 (Q1 + Q5)** reste bloqué en attente des fichiers
-historiques complets que Patrick doit rassembler.
+**Durée estimée** : 2-3 sessions.
 
 ## Paquets terminés
 
@@ -74,11 +76,21 @@ clarification terminologique propriétaires/admin/power_user. ADR-016 créé,
 ADR-007 révisé, CLAUDE.md mis à jour. Raisonnement complet dans le
 sommaire de fermeture.
 
+### Paquet 3A — Portée opérationnelle du tiering (complété)
+
+Extension du Paquet 5 portant sur la portée opérationnelle de
+`data_quality_tier`. 9 décisions actées : tier unique conservé à vie,
+indicateur discret sur la fiche, workflows identiques legacy/app-native,
+modification libre des champs descriptifs sur kit/lot non-finalisés,
+`display_code` toujours via workflow explicite, validation des champs
+critiques à la finalisation de vente, pas de distinction dans les
+rapports au MVP, cas "app-native devient historique" non modélisé, même
+logique pour les lots. ADR-017 créé. ADR-016 révisé (suppression de la
+ligne "admin seul pour legacy"). 2 entrées backlog.
+
 ## Paquets restants à traiter
 
 **Priorité haute (avant développement)** :
-- **Question Paquet 3A** — portée opérationnelle du tiering (prochaine
-  session, ne nécessite pas les données historiques manquantes)
 - **Paquet 3 complet** — données historiques (bloqué : Patrick rassemble
   les fichiers manquants)
 
@@ -142,15 +154,17 @@ pertinentes pour les prochaines sessions :
 - Tentative d'ouverture Paquet 3 : bloquée faute de données historiques
   complètes
 - Bascule sur Paquet 5 (Utilisateurs et permissions), complété
-- Révision majeure d'ADR-007 via ADR-016
+  (ADR-016, révision ADR-007)
 - Invention du pattern "Notification admin asynchrone"
 - Clarification terminologique Patrick/Mika (propriétaires/admin/power user)
-- Question soulevée par Patrick en fin de paquet : portée opérationnelle
-  du tiering → devient prochaine étape
+- Question Paquet 3A soulevée en fermeture Paquet 5 sur la portée
+  opérationnelle du tiering
+- Remise en cause par Patrick de la règle "admin seul pour legacy" de
+  ADR-016
+- Paquet 3A complété dans la foulée (ADR-017, révision ADR-016)
 
-**Prochaine étape décidée** : question Paquet 3A (tiering opérationnel),
-puis reprise Paquet 3 complet quand les données manquantes seront
-disponibles.
+**Prochaine étape décidée** : Paquet 3 complet (données historiques),
+reprise quand Patrick aura rassemblé les fichiers historiques manquants.
 
 ### Sessions précédentes
 
@@ -160,6 +174,7 @@ Pour l'historique complet, voir :
 - `docs/sessions/sommaire-paquet-2-fermeture.md`
 - `docs/sessions/sommaire-paquet-4-fermeture.md`
 - `docs/sessions/sommaire-paquet-5-fermeture.md`
+- `docs/sessions/sommaire-paquet-3A-fermeture.md`
 
 Et les raisonnements narratifs :
 - `docs/decisions/raisonnement-paquet-1.md`
