@@ -29,6 +29,47 @@ Si une pratique s'avère trop lourde ou pose un problème non prévu,
 c'est un signal utile pour le cadrage. Rapporter le problème pour
 ajuster.
 
+## Critère pour qu'une pratique mérite d'être ici
+
+Une pratique pré-MVP doit cocher **les trois cases** :
+
+1. **C'est une donnée dont l'absence aujourd'hui = perte définitive
+   demain.** Pas un comportement, pas une validation, pas une
+   automatisation. Une donnée qu'on ne pourra pas reconstituer
+   rétrospectivement quand l'app existera.
+
+2. **La saisie manuelle est réaliste.** Pas trop de friction au
+   quotidien, faisable sans nouvel outil, sans script, sans formation
+   spéciale.
+
+3. **Le format de saisie est directement compatible avec le modèle de
+   l'app future.** Pas de conversion bidouillée à prévoir lors de la
+   migration.
+
+Si une idée échoue à un seul de ces tests, elle attend l'app.
+
+### Anti-pattern : ce qu'on n'ajoute PAS comme pratique pré-MVP
+
+Le piège classique est de vouloir transformer Excel en mini-app. À
+éviter explicitement :
+
+- **Validations et listes déroulantes** sur les champs → l'app les
+  fera mieux. Saisir en texte propre suffit.
+- **Auto-incrémentation, scripts Apps Script, triggers onEdit** →
+  l'app les fera mieux.
+- **Dashboards, calculs analytiques sophistiqués, mises en forme
+  conditionnelles** → l'app les fera mieux.
+- **Workflows simulés** (statuts complexes, transitions, événements
+  post-vente) → l'app les fera mieux et l'imitation grossière dans
+  Excel sera à défaire au moment de la migration.
+
+**Le principe directeur** : capturer les données, pas reproduire les
+comportements. Excel reste un fichier de saisie, pas une application.
+
+Cette discipline rejoint le Principe 1 du projet (aucune feature ne
+ralentit le workflow actuel) et le Principe 12 (formulaires d'abord,
+exceptions ensuite).
+
 ---
 
 ## Pratique 1 — Capturer l'emplacement de chaque kit
@@ -190,19 +231,131 @@ Le jour de la bascule dans l'app, il faudra que le système "sache"
 que les codes A001 à AXXX (ce que tu auras utilisé) sont déjà pris.
 L'app devra commencer ses ancres à partir de cet état, pas de zéro.
 
+### Statut actuel de la pratique (constat de la consolidation historique)
+
+Pendant la consolidation des fichiers Excel historiques (mars-avril
+2026), Patrick a constaté que **cette pratique n'a pas été adoptée**
+dans les fichiers créés après la rédaction du document. MG19 mars
+2026 (créé en mars 2026) utilise toujours le format `DD3, EE3, FF3...`,
+qui n'est ni le legacy 2025, ni le legacy 2026, ni le format A247.
+
+Ce statu quo crée une **quatrième convention de codes** non prévue,
+qui devra être traitée comme du legacy à la migration.
+
+**Décision** : pour tout **nouveau lot acquis à partir de maintenant**,
+appliquer effectivement le format A247 selon le mécanisme simple décrit
+ci-dessus. Les fichiers en cours (MG19 mars 2026 et autres) gardent
+leur convention actuelle pour ne pas introduire de désynchronisation
+physique/digital sur les pneus déjà étiquetés.
+
+**Conséquence pratique** : ouvrir un fichier de suivi "Codes A247
+réservés" (Excel ou texte) qui note le prochain code disponible. À
+chaque acquisition, réserver la plage et étiqueter les pneus avec ces
+codes. Plus la transition tarde, plus la base de codes legacy
+hétérogènes grossit.
+
+---
+
+## Pratique 5 — Capturer le type de client et les coordonnées de facturation à chaque vente
+
+**Décision liée** : ADR-013 (Clients et facturation au MVP)
+
+### Action immédiate
+
+Pour **chaque vente** enregistrée à partir de maintenant, ajouter dans
+l'Excel les colonnes suivantes :
+
+- **Type_client** : `particulier` ou `commerce`
+- **Mode_facturation** : `email`, `sms`, `papier`, ou `refuse_par_client`
+- **Coordonnée_facturation** : email ou numéro de téléphone selon le
+  mode (texte libre, vide si refuse_par_client)
+- **Facture_envoyée** : `oui` ou `non` (à mettre à jour quand la
+  facture est effectivement envoyée)
+
+### Pour les ventes à des commerces, ajouter aussi
+
+- **Commerce_nom** : nom de l'entreprise
+- **Commerce_personne_ressource** : nom de la personne contactée
+  (optionnel)
+- **Commerce_termes_paiement** : `comptant`, `net_15`, `net_30`,
+  `net_60`, ou `autre`
+
+### Pourquoi maintenant
+
+Une vente faite aujourd'hui sans ces informations ne pourra **jamais**
+être recatégorisée plus tard. Tu ne te souviendras pas dans 12 mois si
+tel kit a été vendu à un commerce ou à un particulier, ni si la facture
+a été envoyée.
+
+Le tableau "Factures à envoyer" prévu dans le MVP repose entièrement
+sur ces champs. Sans eux, les ventes 2026 seront aveugles à cette
+analyse.
+
+### Cohérence avec ADR-013
+
+Les valeurs ci-dessus correspondent **exactement** aux enums prévus
+dans le modèle de données. Pas de conversion bidouillée à la migration.
+
+### Attention — données potentiellement sensibles
+
+Saisir les coordonnées clients implique de ne pas les partager
+inutilement. Garder le fichier privé. La migration vers l'app intègrera
+les considérations Loi 25 (voir ADR-015).
+
+---
+
+## Pratique 6 — Capturer la date d'achat de chaque nouveau lot
+
+**Décision liée** : qualité des analyses de délai de vente (cadrage
+Paquet 3, ADR-017 sur le tiering opérationnel)
+
+### Action immédiate
+
+Pour **chaque nouveau lot acquis à partir de maintenant**, ajouter une
+colonne **"Date d'achat"** dans les Excel en cours et la remplir
+immédiatement avec la date du jour de l'acquisition physique.
+
+Astuce de saisie : `Ctrl + ;` insère la date du jour automatiquement
+dans Excel et Google Sheets.
+
+### Portée
+
+Cette pratique s'applique aux **nouveaux lots à partir de maintenant**.
+Les lots déjà saisis dans les Excel actuels (notamment MG19 mars 2026
+en cours) **restent sans date d'achat saisie**. Pour ceux-là, le
+calcul rétrospectif d'une date estimée se fera au moment de la
+migration (méthode "première vente du groupe d'achat − 3 jours",
+documentée dans la consolidation des fichiers historiques).
+
+### Pourquoi maintenant
+
+Sans la date d'achat saisie, la durée réelle de stockage avant vente
+n'est pas calculable précisément. La méthode d'estimation rétrospective
+est une rustine acceptable pour le legacy, mais elle introduit un biais
+systématique de sous-estimation des délais et n'est pas applicable aux
+lots qui ne sont jamais vendus.
+
+Une date saisie au moment de l'achat élimine entièrement ce problème
+pour les données futures.
+
+### Friction
+
+Quasi nulle : `Ctrl + ;` sur la colonne au moment où tu créerais la
+ligne de toute façon. Quelques secondes par lot.
+
+### Cas observé pendant la consolidation historique
+
+Mika a spontanément ajouté une colonne "Date d'achat" dans le fichier
+"MG19 Début 7 juillet 2025" mais pas dans les autres. C'est exactement
+le bon réflexe — il s'agit simplement de le formaliser comme pratique
+systématique pour tous les nouveaux fichiers.
+
 ---
 
 ## Pratiques à venir (à ajouter au fil des décisions)
 
 Ce document grandit avec le cadrage. Chaque fois qu'une décision peut
 être pratiquée avant l'app, elle vient s'ajouter ici.
-
-**Anticipation pour le Paquet 2 (en cours)** :
-
-- Capture du type de client (particulier vs commerce) sur chaque
-  vente
-- Capture des termes de paiement pour les commerces
-- Capture des coordonnées complètes pour les commerces
 
 **Anticipation pour le Paquet 4 (mécaniques de vente)** :
 
@@ -233,6 +386,15 @@ actionnable cette semaine.
 - **Paquet 2** : création du document, 4 pratiques initiales
   (emplacements, prix affiché, vocabulaire saisons, numérotation
   A247).
+- **Bonification post-Paquet 5 / 3A** : ajout du critère explicite
+  "données vs comportements" et de l'anti-pattern (issu d'un travail
+  de consolidation des fichiers historiques où le piège a été évité de
+  justesse). Promotion des anticipations Paquet 2 en pratiques actives
+  (Pratique 5 — type client et facturation, basée sur ADR-013).
+  Ajout de la Pratique 6 (date d'achat des nouveaux lots, basée sur
+  l'observation que Mika l'avait spontanément adoptée dans certains
+  fichiers). Renforcement de la Pratique 4 (A247) avec un constat de
+  non-adoption et un appel à l'action explicite.
 
 **À compléter** au fil des décisions futures.
 
