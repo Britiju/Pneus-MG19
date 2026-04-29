@@ -10,7 +10,7 @@ usagés — de l'acquisition à la vente, avec dashboards analytiques.
 
 ## Place dans l'écosystème AI MG19
 
-Ce projet App est l'une des 8 catégories de pilotage de MG19 Inc.
+Ce projet App est l'une des **8 catégories** de pilotage de MG19 Inc. — précisément 7 dimensions stratégiques (App, Business, Compta, Données, Marketing, Corpo, Tech & Sécurité) plus 1 outil tactique hybride (Stealth).
 Un document MASTER-CONTEXTE existe dans AI Workspace (Drive Partagé)
 et fait foi pour les questions transversales (architecture
 écosystème, conventions, ballet d'outils, comptes utilisateurs).
@@ -20,12 +20,24 @@ qui touche d'autres dimensions.
 Frontière du ballet d'outils :
 - Claude Code (toi) : écrit dans le repo GitHub, n'accède pas
   aux Drives métier
-- Claude.ai par dimension : pilote les dimensions business via
+- Claude.ai App : pilote le cadrage et la réflexion stratégique sur
+  l'application web pneus-MG19, prépare des briefs pour Claude Code,
+  révise ce que Claude Code produit (voir GOV-APP-PROMPT-PATRON dans
+  AI Workspace pour le détail)
+- Claude.ai par dimension : pilote les autres dimensions business via
   Drives métier
 - Coordinateur Claude : synthèses transversales, lit tout
 
 Pour les questions qui touchent 2+ dimensions ou l'écosystème
 global, Patrick passe par le Coordinateur, pas par toi.
+
+Particularité de la dimension App dans l'écosystème : son pilotage
+ne vit pas dans un STATUS dans AI Workspace (comme les autres
+dimensions), mais directement dans `docs/journal-avancement.md` de
+ce repo. C'est une exception assumée dans MASTER-CONTEXTE — App est
+plus mature que les autres dimensions et bénéficie déjà d'un
+historique riche dans le repo (vision-produit, ADR, raisonnements
+narratifs).
 
 ## Les propriétaires du projet
 
