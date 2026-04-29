@@ -8,6 +8,25 @@ Ce fichier est la source de vérité du contexte projet.
 Plateforme web pour gérer le cycle de vie complet d'un inventaire de pneus
 usagés — de l'acquisition à la vente, avec dashboards analytiques.
 
+## Place dans l'écosystème AI MG19
+
+Ce projet App est l'une des 8 catégories de pilotage de MG19 Inc.
+Un document MASTER-CONTEXTE existe dans AI Workspace (Drive Partagé)
+et fait foi pour les questions transversales (architecture
+écosystème, conventions, ballet d'outils, comptes utilisateurs).
+Patrick peut te le fournir si tu en as besoin pour une décision
+qui touche d'autres dimensions.
+
+Frontière du ballet d'outils :
+- Claude Code (toi) : écrit dans le repo GitHub, n'accède pas
+  aux Drives métier
+- Claude.ai par dimension : pilote les dimensions business via
+  Drives métier
+- Coordinateur Claude : synthèses transversales, lit tout
+
+Pour les questions qui touchent 2+ dimensions ou l'écosystème
+global, Patrick passe par le Coordinateur, pas par toi.
+
 ## Les propriétaires du projet
 
 - **Patrick** — père de Mika, VP opérations dans une entreprise de
@@ -43,6 +62,11 @@ Voir ADR-016 pour le détail du modèle de rôles.
 - GitHub pour le code source et la documentation
 - Vercel pour l'hébergement web
 - Supabase pour la base de données et l'authentification
+- QuickBooks Online comme source de vérité comptable et
+  relationnelle (voir docs/11-integration-quickbooks.md). L'app ne
+  génère pas de factures, ne calcule pas les taxes, ne maintient
+  pas d'entité Client. Les champs miroir qb_* prévus dans le
+  schéma seront alimentés en Phase C.
 
 ## Phases du projet
 - MVP : Modules 1 (Dashboard), 2 (Inventaire), 3 (Finance)
@@ -120,14 +144,16 @@ proposer une suite productive à Mika.
 - docs/12-integration-physique-reseau.md : appareils physiques (imprimantes, scanners, terminaux) et topologie réseau
 - docs/13-integration-canaux-vente.md : vision stratégique des canaux de vente (Google Calendar, site web, commerce comptoir, CRM, Messenger)
 - docs/apprentissage-stealth-test.md : prototype d'apprentissage parallèle au cadrage (workflow photo → reconnaissance → Marketplace), avec date de mort programmée
+- docs/apprentissages-stealth-test.md : apprentissages au fil de l'eau du prototype (faits validés, dette technique, propositions à tester, vision)
 - docs/questions-ouvertes.md : sujets en cours non tranchés
 - docs/backlog.md : idées hors-scope capturées pour évaluation future
 - docs/pratiques-pre-mvp.md : pratiques à adopter dans les Excel actuels avant la bascule MVP
 - docs/sessions/ : archives des sommaires de cadrage exécutés (voir docs/sessions/README.md — documents historiques, ne pas ré-exécuter)
 - docs/decisions/ : ADR (Architecture Decision Records)
 
-## Conventions de code (à compléter en Phase 4)
-À définir quand la stack technique sera validée.
+## Conventions de code
+À documenter dans `docs/09-stack-technique.md` (section "Conventions
+de code") avant le démarrage du développement MVP.
 
 ## Instructions pour Claude Code
 - Lis TOUJOURS ce fichier d'abord
