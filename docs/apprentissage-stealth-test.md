@@ -58,6 +58,17 @@ Si l'un de ces seuils est dépassé sans qu'un bilan d'apprentissage
 ait produit de la valeur tangible pour le cadrage Phase B, le
 prototype est considéré comme un échec et arrêté.
 
+## Architecture en deux composants
+
+Le prototype stealth se décompose en deux composants indépendants :
+
+- **Côté production** : génération des fichiers texte de description et organisation des photos (à venir, sera développé selon les apprentissages au fil de l'eau)
+- **Côté consommation** : script Tampermonkey de remplissage automatique de Marketplace (existant, voir `prototypes/marketplace-helper/`)
+
+Les apprentissages au fil de l'eau de l'expérimentation sont consignés dans `apprentissages-stealth-test.md` (séparé de ce document de cadrage). Ce dernier document maintient la distinction entre faits validés, propositions à tester et vision long terme.
+
+Les **données opérationnelles** (photos brutes des lots, fichiers `_annonce.txt` générés, Excel maître du prototype) iront dans un Google Drive séparé `Pneus-MG19 — Prototype stealth/`, à créer par Mika au moment du premier vrai lot. Le repo Git ne stocke que le cadrage, les ADR, le script Tampermonkey et les apprentissages.
+
 ## Les 5 features acceptées (et c'est tout)
 
 ### Feature 1 — Capture mobile d'un kit

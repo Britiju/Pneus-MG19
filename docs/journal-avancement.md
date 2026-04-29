@@ -220,6 +220,24 @@ weekend project. Le cadrage Paquet 3 reste la prochaine étape
 quand les fichiers historiques seront rassemblés. Aucune dépendance
 entre les deux activités.
 
+### Avril 2026 — Session de design technique du composant côté consommation du prototype stealth
+
+Session de design avec Claude. Trois activités :
+
+1. **Archivage du script Tampermonkey v0.7** développé en session parallèle (avec une autre instance d'IA dans un projet tiers "Stealth ID pneus"). Le script automatise le remplissage des champs textes du formulaire Marketplace via drag-and-drop d'un fichier `.txt` clé-valeur.
+
+2. **Calibration de la vision IA** sur 3 kits de pneus de calibration (Yokohama Avid Ascend GT 225/60R18, Bridgestone Turanza LS100 235/40R19, Sailun Inspire 235/65R18). Validation empirique d'un protocole photo : pas de flash, coup de wipe sur le flanc, photo flanc large + photo DOT rapprochée dédiée.
+
+3. **Design du flow d'étiquetage et du Test V1** du pipeline manuel-assisté (photos cell → analyse IA → renommage → génération `.txt` → drag-drop Marketplace en mode calibration sans publication).
+
+Livrables : script Tampermonkey archivé dans `prototypes/marketplace-helper/`, document `apprentissages-stealth-test.md` créé avec distinction explicite faits/propositions/vision, note dans le cadrage du prototype.
+
+Aucune convention validée du Paquet 6 n'a été modifiée. Les propositions de révision (nombre de photos variable, étiquette comme délimiteur, étiquetage à la demande, convention dossier plat, format `.txt` unique) sont consignées comme propositions à valider par usage.
+
+**Sessions futures anticipées** : voir `apprentissages-stealth-test.md` Index des sessions futures (7 sessions identifiées avec leurs déclencheurs respectifs). Les deux plus immédiates :
+- Session d'ajustement de flow après 2-3 vrais lots testés
+- Session de design Test V2 (intégration cell-Drive avec lot+vendeur attribués à la prise) après validation du Test V1
+
 ### Sessions précédentes
 
 Pour l'historique complet, voir :
