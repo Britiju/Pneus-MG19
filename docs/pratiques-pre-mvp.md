@@ -188,71 +188,68 @@ plus honnête avec la variabilité d'usage réel.
 
 ---
 
-## Pratique 4 — Démarrer la numérotation A247 pour les nouveaux kits
+## Pratique 4 — Numérotation transitoire pendant le prototype stealth
 
-**Décision liée** : ADR-004 (Système de numérotation)
+**Décision liée** : ADR-004 (système A247), ADR-018 (réservation
+lettre T), `docs/apprentissage-stealth-test.md` (prototype stealth)
 
-### Action immédiate
+### Action immédiate (pendant le prototype stealth)
 
-Pour les **nouveaux lots achetés** à partir de maintenant, commencer
-à utiliser le format `A247` (1 lettre + 3 chiffres).
+Pendant la durée du prototype d'apprentissage stealth (avril 2026
+→ max 6 mois), tous les nouveaux kits sont numérotés selon le
+format **`T##-##`** :
 
-**Les kits existants** gardent leur numérotation actuelle (1A, V01,
-etc.) conformément à la cohabitation des 3 conventions (voir
-ADR-004).
+- T01-01, T01-02, T01-03... pour les kits du premier lot
+- T02-01, T02-02... pour le deuxième lot
+- etc.
 
-### Mécanisme simple pour commencer
+Le format est documenté en détail dans
+`docs/apprentissage-stealth-test.md`.
 
-Sans l'app, tu ne peux pas avoir le système des 50 ancres avec
-réservation de plage. Mais tu peux commencer **plus simplement** :
+**Mécanisme** :
 
-1. Ouvrir un petit fichier de suivi (Excel ou texte)
-2. Noter : "Prochain code disponible : A001"
-3. À chaque lot acheté, réserver une plage (ex: A001 à A015 pour un
-   lot de 15 kits), marquer "Prochain code : A016"
-4. Étiqueter les pneus avec les codes réservés
+L'app PWA mobile du prototype génère automatiquement le prochain
+numéro disponible. Mika écrit le code complet (ex: `T01-01`) au
+marqueur sur un sticker collé sur un pneu du kit.
 
-**Ce que tu perds** par rapport à la version app :
+**Cohérence avec le système A247 final** :
 
-- Pas d'aléatoire entre les plages (tes codes seront séquentiels
-  prévisibles jusqu'à la bascule)
-- Pas de bouton "Annuler la réservation"
-- Pas de journal d'événements
+La lettre `T` est explicitement réservée aux codes du prototype
+(ADR-018). Le système A247 ne la générera jamais. Les codes T##-##
+sont distinguables visuellement des codes A247 par leur format (6
+caractères avec tiret vs 4 caractères sans tiret).
 
-**Ce que tu gagnes** :
+### Bascule vers A247 (avec l'app finale)
 
-- Vocabulaire standardisé dès maintenant
-- Habitude de réserver des plages
-- Cohérence visuelle des étiquettes au marqueur
+Quand l'app finale (Module 4 - Saisie mobile) entre en
+développement Phase B :
+
+1. Les kits du prototype stealth (codes T##-##) sont migrés en
+   `legacy_migrated` avec `legacy_source = stealth_test`. Leurs
+   codes sont préservés.
+2. Le système A247 prend le relais avec ses 50 ancres distribuées
+   dans les 25 lettres autres que T (voir ADR-004 et ADR-018).
+3. Tous les nouveaux kits créés après la bascule reçoivent un code
+   au format A247 (ex: A001, B247, M508...).
+4. Les 4 conventions cohabitent dans la base : legacy 2025, legacy
+   2026, stealth, app-native.
+
+### Bénéfice immédiat
+
+- Format simple à écrire sur le terrain (6 caractères au marqueur)
+- Identification physique-numérique solide pendant le test
+- Migration future préservant l'historique
+- Test en conditions réelles du concept de codes courts (informe le
+  cadrage du système A247 final)
 
 ### Attention
 
-Le jour de la bascule dans l'app, il faudra que le système "sache"
-que les codes A001 à AXXX (ce que tu auras utilisé) sont déjà pris.
-L'app devra commencer ses ancres à partir de cet état, pas de zéro.
-
-### Statut actuel de la pratique (constat de la consolidation historique)
-
-Pendant la consolidation des fichiers Excel historiques (mars-avril
-2026), Patrick a constaté que **cette pratique n'a pas été adoptée**
-dans les fichiers créés après la rédaction du document. MG19 mars
-2026 (créé en mars 2026) utilise toujours le format `DD3, EE3, FF3...`,
-qui n'est ni le legacy 2025, ni le legacy 2026, ni le format A247.
-
-Ce statu quo crée une **quatrième convention de codes** non prévue,
-qui devra être traitée comme du legacy à la migration.
-
-**Décision** : pour tout **nouveau lot acquis à partir de maintenant**,
-appliquer effectivement le format A247 selon le mécanisme simple décrit
-ci-dessus. Les fichiers en cours (MG19 mars 2026 et autres) gardent
-leur convention actuelle pour ne pas introduire de désynchronisation
-physique/digital sur les pneus déjà étiquetés.
-
-**Conséquence pratique** : ouvrir un fichier de suivi "Codes A247
-réservés" (Excel ou texte) qui note le prochain code disponible. À
-chaque acquisition, réserver la plage et étiqueter les pneus avec ces
-codes. Plus la transition tarde, plus la base de codes legacy
-hétérogènes grossit.
+- **Ne pas mélanger** les formats pendant le test : tous les
+  nouveaux kits sont en T##-##, pas en A247
+- **Ne pas réutiliser** un code T##-## après la migration : la
+  lettre T est définitivement réservée au legacy stealth (ADR-018)
+- **Conserver les stickers** physiques sur les pneus jusqu'à la
+  vente, même après migration dans l'app finale
 
 ---
 

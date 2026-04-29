@@ -186,12 +186,27 @@ le nouveau format (A001, A002, etc.) ou conservés tels quels?
 
 **Contexte**
 
-ADR-004 stipule que les 3 conventions cohabitent (legacy 2025, legacy
-2026, nouveau système). La distinction de format lève les ambiguïtés
-à la recherche.
+ADR-004 stipule initialement que 3 conventions cohabitent (legacy
+2025, legacy 2026, nouveau système A247). La distinction de format
+lève les ambiguïtés à la recherche.
 
-Cependant, la question "faut-il quand même migrer pour uniformiser?"
-reste ouverte.
+**Mise à jour suite au prototype stealth (avril 2026)** : une **4e
+convention** est ajoutée : les codes du prototype d'apprentissage
+stealth, format `T##-##` (T + chiffres + tiret + chiffres). Ces
+codes appartiennent à des kits qui seront importés en
+`legacy_migrated` avec sous-marqueur `legacy_source = stealth_test`
+(voir ADR-002 et ADR-017). La lettre T est définitivement réservée
+à ces codes (voir ADR-018), donc le système A247 ne pourra jamais
+générer de code dans l'espace T.
+
+Les 4 conventions cohabitent donc dans la base finale :
+- Legacy 2025 : `1A`, `2B`, `5M-a`
+- Legacy 2026 : `V01`, `V02`
+- Stealth test : `T01-01`, `T02-03`
+- App-native : `A247`, `B088` (lettre + 3 chiffres, sauf T)
+
+Cependant, la question "faut-il quand même uniformiser un jour?"
+reste ouverte pour les 4 conventions.
 
 **Arguments pour conservation** :
 - Traçabilité historique (le code original reste celui écrit sur les
@@ -447,3 +462,7 @@ avec référence à l'ADR ou au document qui les a tranchées.*
 - **Paquet 5 (utilisateurs et permissions, fermeture)** : aucune nouvelle
   question ouverte. ADR-016 tranche le modèle de rôles au MVP et précise
   ADR-007. Pattern "Notification admin asynchrone" inventé et documenté.
+- **Paquet 6 (prototype stealth)** : aucune nouvelle question
+  ouverte créée. Q5 mise à jour pour intégrer la 4e convention de
+  codes (stealth) suite à la création du prototype d'apprentissage
+  documenté dans `docs/apprentissage-stealth-test.md` et ADR-018.

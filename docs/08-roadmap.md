@@ -112,4 +112,47 @@ Toute idée nouvelle passe par :
 Aucune exception. C'est le mécanisme anti-scope-creep principal du
 projet.
 
+## Activités parallèles au cadrage
+
+Indépendamment de la séquence MVP → Phase B → Phase C, certaines
+activités d'apprentissage se déroulent en parallèle pour informer
+le cadrage des phases futures. Ces activités ne sont pas des phases
+du projet, ce sont des **expériences ciblées** qui produisent des
+apprentissages exploitables.
+
+### Prototype d'apprentissage stealth
+
+**Démarrage** : avril 2026
+**Durée maximale** : 6 mois
+**Objectif** : tester en conditions réelles le workflow acquisition
+→ photo → reconnaissance → enrichissement → publication Marketplace,
+pour informer le cadrage du Module 4 (Saisie mobile) et du Module 5
+(Listing automatique) en Phase B.
+
+**Périmètre** : 3-5 lots, 30-50 kits, codes T##-## (voir ADR-018).
+
+**Caractéristiques** :
+
+- **Hors scope MVP, hors scope Phase B, hors scope Phase C**
+- Outil **transitoire** avec date de mort programmée (Module 4
+  prend le relais)
+- Données migrables en `legacy_migrated` avec sous-marqueur
+  `legacy_source = stealth_test`
+- Apprentissages documentés progressivement dans
+  `docs/apprentissages-stealth-test.md`
+
+**Documentation détaillée** :
+`docs/apprentissage-stealth-test.md`
+
+### Étiquetage physique avec imprimante Zebra
+
+**Statut** : exploration parallèle envisagée (non démarrée)
+**Référence** : `docs/12-integration-physique-reseau.md` section
+"Apprentissage parallèle (hors MVP)"
+
+Mika peut commencer à tester l'étiquetage imprimé sur des pneus
+réels avec un kit Zebra (imprimante + étiquettes test + ruban) sans
+toucher au code de l'app. Cette exploration informe le cadrage de
+l'intégration physique pour Phase B/C.
+
 ---

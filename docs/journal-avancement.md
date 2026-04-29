@@ -10,16 +10,25 @@
 
 ## État actuel
 
-**Date de dernière mise à jour** : Avril 2026
+**Date de dernière mise à jour** : Avril 2026 (mise à jour pendant
+la session Paquet 6 — prototype stealth)
 
 **Phase du projet** : Cadrage actif (pas encore en développement)
 
 **Paquets critiques complétés** : 1, 2, 4, 5 + Paquet 3A (question
-tiering opérationnel)
+tiering opérationnel) + Paquet 6 (prototype stealth)
 
 **Paquet en cours** : aucun
 
+**Activité parallèle en démarrage** : prototype d'apprentissage
+stealth (Patrick code en weekend project, voir
+`docs/apprentissage-stealth-test.md`)
+
 ## Prochaine étape prévue
+
+**Note** : avec le démarrage du prototype stealth (Paquet 6, avril
+2026), la prochaine étape de cadrage reste le Paquet 3, mais Patrick
+peut développer le prototype en parallèle sans dépendance.
 
 **Paquet 3 complet — Données historiques et migration Excel**
 
@@ -87,6 +96,17 @@ critiques à la finalisation de vente, pas de distinction dans les
 rapports au MVP, cas "app-native devient historique" non modélisé, même
 logique pour les lots. ADR-017 créé. ADR-016 révisé (suppression de la
 ligne "admin seul pour legacy"). 2 entrées backlog.
+
+### Paquet 6 — Prototype d'apprentissage stealth (complété)
+
+Définition du prototype d'apprentissage transitoire pour tester en
+conditions réelles le workflow photo → reconnaissance → publication
+Marketplace. Format de codes T##-## (voir ADR-018), 5 features,
+anti-patterns explicites, conditions de mort programmées.
+ADR-018 créé (réservation lettre T). 5 documents amendés
+(06-modele-donnees, pratiques-pre-mvp, questions-ouvertes,
+08-roadmap, CLAUDE). Patrick prend le relais pour développer en
+weekend project. Raisonnement complet dans le sommaire de fermeture.
 
 ## Paquets restants à traiter
 
@@ -166,6 +186,32 @@ pertinentes pour les prochaines sessions :
 **Prochaine étape décidée** : Paquet 3 complet (données historiques),
 reprise quand Patrick aura rassemblé les fichiers historiques manquants.
 
+### Session avril 2026 — Paquet 6 (session actuelle)
+
+**Durée** : longue (plusieurs heures)
+**Accomplissements** :
+- Définition du prototype d'apprentissage stealth
+- Audit de cohérence : 10 points d'incohérence identifiés et
+  tranchés
+- Création d'ADR-018 (réservation lettre T)
+- Amendements de 5 documents existants pour intégrer le prototype
+- Format de codes T##-## défini avec hiérarchie lot/kit visible
+
+**Patterns observés** :
+- L'assistant a initialement sous-estimé les conflits de cohérence
+  potentiels avec le projet existant. Mika a explicitement demandé
+  un audit, qui a révélé 10 points à régler.
+- Mika a poussé pour intégrer le numéro de lot dans le code
+  physique du sticker, contre la première proposition de
+  l'assistant qui les séparait artificiellement.
+- Discipline rigoureuse sur les anti-patterns : "tout ce qui n'est
+  pas dans la liste des 5 features est REFUSÉ".
+
+**Prochaine étape décidée** : Patrick développe le prototype en
+weekend project. Le cadrage Paquet 3 reste la prochaine étape
+quand les fichiers historiques seront rassemblés. Aucune dépendance
+entre les deux activités.
+
 ### Sessions précédentes
 
 Pour l'historique complet, voir :
@@ -175,6 +221,7 @@ Pour l'historique complet, voir :
 - `docs/sessions/sommaire-paquet-4-fermeture.md`
 - `docs/sessions/sommaire-paquet-5-fermeture.md`
 - `docs/sessions/sommaire-paquet-3A-fermeture.md`
+- `docs/sessions/sommaire-paquet-6-prototype-stealth.md`
 
 Et les raisonnements narratifs :
 - `docs/decisions/raisonnement-paquet-1.md`

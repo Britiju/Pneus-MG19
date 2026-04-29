@@ -31,6 +31,9 @@ fournisseur, à une date donnée).
 - `prix_total` — montant payé pour le lot complet
 - `notes` — observations générales sur le lot
 - `data_quality_tier` — `legacy_migrated` ou `app_native`
+- `legacy_source` — texte/enum, optionnel, présent uniquement si
+  `data_quality_tier = legacy_migrated`. Valeurs : `excel_historique`
+  ou `stealth_test`. Permet de distinguer l'origine de l'import legacy.
 - `statut` — `draft` / `active` / `archived`
 
 **Règles** :
@@ -68,6 +71,7 @@ modèle — ce que Mika étiquette, décrit, vend, tracque.
   opportuniste d'infos de prospection (noms, téléphones, prix
   négociés informels, etc.) hors du cadre structuré des rendez-vous.
 - `data_quality_tier` — hérité du Lot
+- `legacy_source` — hérité du Lot, présent uniquement si legacy
 - `statut` — `draft` / `en_stock` / `en_vente` / `vendu` / `donne` /
   `rebute_total` / `detache` / `archive`
 
@@ -314,12 +318,21 @@ Les 607 enregistrements historiques sont importés avec :
 - Les champs manquants (Profit_calcule, Annee_usinage, etc.) restent
   null avec `trust_score = unknown_legacy`
 
-Le moteur de recherche gère **trois conventions** cohabitantes :
-- Legacy 2025 : `1A`, `2B`, `5M-a`
-- Legacy 2026 : `V01`, `V02`
-- Nouveau système : `A247`, `B088`
+Le moteur de recherche gère **quatre conventions** cohabitantes :
+- Legacy 2025 : `1A`, `2B`, `5M-a` (chiffre + lettre)
+- Legacy 2026 : `V01`, `V02` (V + chiffres)
+- Stealth test : `T01-01`, `T02-03` (T + chiffres + tiret + chiffres)
+- Nouveau système : `A247`, `B088` (lettre + 3 chiffres, sauf T —
+  voir ADR-018)
 
-La distinction de format (longueur, structure) lève les ambiguïtés à
-la recherche.
+La distinction de format (longueur, structure, présence du tiret)
+lève les ambiguïtés à la recherche.
+
+Les codes **stealth test** proviennent du prototype d'apprentissage
+défini dans `docs/apprentissage-stealth-test.md`. Ils sont importés
+au moment de la migration en `data_quality_tier = legacy_migrated`
+avec un sous-marqueur supplémentaire `legacy_source = stealth_test`
+qui les distingue du legacy Excel historique
+(`legacy_source = excel_historique`).
 
 ---
