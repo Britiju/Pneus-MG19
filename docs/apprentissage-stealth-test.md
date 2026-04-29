@@ -356,6 +356,92 @@ prototype :
 serait pas pertinente pour un acheteur). Elle est conservée pour
 traçabilité et pour permettre l'OCR de relecture si nécessaire.
 
+## Critères de succès du prototype
+
+Le prototype d'apprentissage stealth est jugé **réussi** si, à sa
+mort, il a produit au minimum les livrables suivants. Sans ces
+livrables, le prototype a été utilisé comme outil opérationnel sans
+capturer la valeur d'apprentissage qui justifiait son existence.
+
+### Livrable 1 — Apprentissages pour le Module 4 (Saisie mobile)
+
+Au minimum **3 apprentissages concrets et actionnables** documentés
+dans `docs/apprentissages-stealth-test.md`, qui modifient ou
+enrichissent le cadrage du Module 4 (Saisie mobile).
+
+Exemples du type d'apprentissages attendus (illustratifs, non
+prescriptifs) :
+
+- "La saisie mobile en extérieur nécessite des boutons de minimum
+  X mm pour être utilisable avec des mains sales/froides"
+- "L'ordre des photos doit/ne doit pas être strict"
+- "Le compteur visuel 1/6 → 6/6 est essentiel/inutile"
+- "L'app doit/ne doit pas demander confirmation avant de passer au
+  kit suivant"
+
+### Livrable 2 — Apprentissages pour le Module 5 (Listing automatique)
+
+Au minimum **3 apprentissages concrets et actionnables** documentés,
+qui modifient ou enrichissent le cadrage du Module 5 (Listing
+automatique).
+
+Exemples du type d'apprentissages attendus :
+
+- "La génération automatique de description doit/ne doit pas inclure
+  X élément"
+- "Les acheteurs Marketplace réagissent mieux à tel format de titre"
+- "La validation manuelle du prix est/n'est pas suffisante"
+- "Le drag-and-drop des photos depuis Drive est viable/non viable
+  pour la publication"
+
+### Livrable 3 — Mesure d'accuracy de la reconnaissance IA
+
+Une mesure quantifiée de l'accuracy de la reconnaissance automatique
+sur des flancs de pneus en conditions réelles (lumière variable,
+saleté, angle imparfait), pour chacun des champs détectés :
+
+- `marque_detectee` : taux de détection correcte (%)
+- `dimensions_detectees` : taux de détection correcte (%)
+- `dot_detecte` : taux de détection correcte (%)
+- `saison_detectee` : taux de détection correcte (%)
+- `nature_detectee` : taux de détection correcte (%)
+- `usure_detectee` : taux de détection correcte (%)
+- `kit_id_detecte` (OCR sticker) : taux de détection correcte (%)
+
+Cette mesure informe directement la décision Phase B sur
+l'investissement à faire dans la reconnaissance IA pour le Module 4.
+
+### Livrable 4 — Mesure de temps réel par lot
+
+Une mesure quantifiée du temps réel pris par lot, décomposé en :
+
+- Temps de capture mobile sur le terrain
+- Temps de traitement par la reconnaissance IA
+- Temps de complétion manuelle de l'Excel
+- Temps de publication sur Marketplace
+
+Cette mesure permet de valider ou invalider le **ROI estimé** du
+Module 4 et du Module 5 avant leur développement, sur des données
+réelles plutôt que sur des hypothèses.
+
+### Comment juger le succès
+
+À la mort du prototype, Mika et Patrick font ensemble un bilan
+court (1-2 heures) où ils valident que les 4 livrables sont produits.
+
+Si **les 4 livrables sont produits** : le prototype est un succès.
+Ses apprentissages alimentent le cadrage Phase B et le développement
+des Modules 4 et 5 commence avec une base empirique solide.
+
+Si **moins de 4 livrables sont produits** : le prototype a été
+utilisé comme outil opérationnel pur. C'est en soi un apprentissage
+(la discipline de capture est plus difficile qu'anticipé), mais le
+projet n'a pas tiré la valeur attendue.
+
+Dans les deux cas, le bilan est documenté dans
+`docs/apprentissages-stealth-test.md` (section finale) pour
+informer les futurs prototypes éventuels.
+
 ## Conditions de mort du prototype
 
 L'outil est explicitement temporaire. Il meurt quand l'une des

@@ -128,6 +128,14 @@ weekend project. Raisonnement complet dans le sommaire de fermeture.
 - `docs/decisions/raisonnement-paquet-4.md` — narratif complet du
   Paquet 4, à produire dans une session dédiée (session peu
   demandante pour Mika : Claude produit, Mika valide)
+- `docs/decisions/raisonnement-paquet-6.md` — narratif complet du
+  Paquet 6 (prototype d'apprentissage stealth), à produire dans une
+  session dédiée. Devrait capturer notamment : le glissement
+  Tampermonkey → app web → prototype d'apprentissage, les 5
+  itérations sur le format des codes (T001 → T01-K1 → T01-01),
+  l'audit de cohérence demandé proactivement par Mika et ses 10
+  points résolus, l'auto-critique de l'assistant sur la
+  sous-estimation initiale des conflits de cohérence.
 
 ### Sessions spéciales à prévoir
 
